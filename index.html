@@ -3,185 +3,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>デジタル名刺 - あなたの名前</title>
+    <title>ソーシャルノバ - Vibe Coding Web名刺</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Custom styles from KAGEKIN ver. */
+        :root {
+            --bg-color: #0d0d1a;
+            --primary-neon: #00f6ff;
+            --secondary-neon: #ff00ff;
+            --accent-neon: #39ff14;
+            --text-color: #e0e0e0;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Rajdhani', 'Noto Sans JP', sans-serif;
+            overflow-x: hidden;
         }
 
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-            animation: fadeInUp 0.6s ease-out;
-        }
+        .neon-text-primary { color: var(--primary-neon); text-shadow: 0 0 5px var(--primary-neon), 0 0 10px var(--primary-neon), 0 0 20px var(--primary-neon); }
+        .neon-text-secondary { color: var(--secondary-neon); text-shadow: 0 0 5px var(--secondary-neon), 0 0 10px var(--secondary-neon), 0 0 20px var(--secondary-neon); }
+        .neon-text-accent { color: var(--accent-neon); text-shadow: 0 0 5px var(--accent-neon), 0 0 10px var(--accent-neon), 0 0 15px var(--accent-neon); }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        .section-title { font-size: 2.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 
-        .profile-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: white;
-            font-weight: bold;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--primary-neon); border-radius: 4px; box-shadow: 0 0 5px var(--primary-neon); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--secondary-neon); }
+        
+        .card { background: rgba(20, 20, 40, 0.5); border: 1px solid rgba(0, 246, 255, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s ease; }
+        .card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 0 20px rgba(0, 246, 255, 0.3); border-color: var(--primary-neon); }
 
-        .name {
-            font-size: 28px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .title {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .social-links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            background: #f8f9fa;
-            padding: 15px 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .social-link:hover {
-            background: #e9ecef;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .social-link.twitter:hover { border-color: #1da1f2; }
-        .social-link.instagram:hover { border-color: #e4405f; }
-        .social-link.messenger:hover { border-color: #0084ff; }
-        .social-link.line:hover { border-color: #00b900; }
-
-        .social-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-
-        .social-text {
-            font-weight: 500;
-            flex: 1;
-            text-align: left;
-        }
-
-        .footer {
-            margin-top: 30px;
-            font-size: 14px;
-            color: #999;
-        }
-
-        @media (max-width: 480px) {
-            .card {
-                padding: 30px 20px;
-            }
-            
-            .name {
-                font-size: 24px;
-            }
-            
-            .profile-image {
-                width: 100px;
-                height: 100px;
-                font-size: 40px;
-            }
-        }
+        .social-btn { display: flex; align-items: center; justify-content: center; padding: 0.75rem; border-radius: 0.5rem; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; transform-origin: center; border: 2px solid transparent; text-decoration: none; }
+        .social-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px currentColor; }
+        .social-btn svg { width: 24px; height: 24px; margin-right: 0.75rem; flex-shrink: 0; }
+        .social-btn span { flex-shrink: 0; }
+        .btn-x { color: #fff; background-color: #1DA1F2; border-color: #1DA1F2; }
+        .btn-messenger { color: #fff; background-color: #0084ff; border-color: #0084ff; }
+        .btn-instagram { color: #fff; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border: none; }
+        .btn-line { color: #fff; background-color: #06C755; border-color: #06C755; }
+        
+        #animation-layer { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 10; overflow: hidden; }
+        .anim-char { position: absolute; font-size: 4rem; opacity: 0; will-change: transform, opacity; }
     </style>
 </head>
-<body>
-    <div class="card">
-        <div class="profile-image">
-            <!-- ここに頭文字や絵文字を入れてください -->
-            👤
-        </div>
-        
-        <h1 class="name">あなたの名前</h1>
-        <p class="title">あなたの肩書き・職業</p>
-        
-        <div class="social-links">
-            <!-- X (Twitter) -->
-            <a href="https://twitter.com/your_username" class="social-link twitter" target="_blank">
-                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-                <span class="social-text">X (Twitter)</span>
-            </a>
-            
-            <!-- Instagram -->
-            <a href="https://instagram.com/your_username" class="social-link instagram" target="_blank">
-                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
-                <span class="social-text">Instagram</span>
-            </a>
-            
-            <!-- Messenger -->
-            <a href="https://m.me/your_username" class="social-link messenger" target="_blank">
-                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0C5.374 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.626 0 12-4.974 12-11.111C24 4.975 18.626 0 12 0zm1.193 14.963l-3.056-3.259-5.963 3.259L10.732 8l3.13 3.259L19.732 8l-6.539 6.963z"/>
-                </svg>
-                <span class="social-text">Messenger</span>
-            </a>
-            
-            <!-- LINE (任意) -->
-            <a href="https://line.me/ti/p/your_line_id" class="social-link line" target="_blank">
-                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.070 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
-                </svg>
-                <span class="social-text">LINE</span>
-            </a>
-        </div>
-        
-        <div class="footer">
-            <p>QRコードからアクセスありがとうございます！</p>
+<body class="antialiased">
+
+    <div id="animation-layer"></div>
+
+    <div id="main-content" class="opacity-0">
+        <header class="w-full p-4 fixed top-0 left-0 z-40 bg-gradient-to-b from-black/80 to-transparent">
+             <div class="container mx-auto flex justify-between items-center">
+                 <h1 class="text-2xl font-bold neon-text-primary uppercase">SocialNova</h1>
+                 <p class="text-lg neon-text-secondary">by NextPlan LLC.</p>
+             </div>
+        </header>
+
+        <main class="container mx-auto px-4 pt-24 relative z-20">
+
+            <section id="hero" class="min-h-screen flex flex-col items-center justify-center text-center">
+                <div class="animate-item">
+                    <h2 class="text-4xl md:text-5xl font-bold neon-text-primary">まずはファーストコンタクト！🚀</h2>
+                    <p class="mt-4 mb-8 text-xl md:text-2xl neon-text-accent">質問できるVibe Coding Web名刺</p>
+                </div>
+                
+                <div class="card p-8 rounded-lg animate-item w-full max-w-md">
+                    <img src="https://pbs.twimg.com/profile_images/1759177303157051392/SZAe49Vg_400x400.jpg" alt="うしくんアイコン" class="rounded-full w-32 h-32 mx-auto mb-4 border-4 border-primary-neon shadow-lg shadow-primary-neon/50">
+                    <h3 class="text-3xl font-bold neon-text-primary">ソーシャルノバ事業窓口</h3>
+                    <p class="text-lg opacity-80 mb-6">担当: うしくん 🐮</p>
+                    <div class="space-y-4">
+                        <a href="https://x.com/Ushikun_desu" target="_blank" class="social-btn btn-x"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg><span>X (旧Twitter)</span></a>
+                        <a href="https://www.facebook.com/hoshinoushikun/" target="_blank" class="social-btn btn-messenger"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10c.22 0 .44-.02.66-.05l3.53 2.52c.24.17.56 0 .56-.3V19.4c1.78-.93 3.05-2.79 3.23-4.93A10.012 10.012 0 0 0 22 12c0-5.52-4.48-10-10-10zm-2 11.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5zm4 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"></path></svg><span>Messenger</span></a>
+                        <a href="https://www.instagram.com/ushikun_vtuber_metaverse" target="_blank" class="social-btn btn-instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8A3.6 3.6 0 0 0 20 16.4V7.6A3.6 3.6 0 0 0 16.4 4H7.6m6.4 4.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7M12 10a2 2 0 1 1 0 4a2 2 0 0 1 0-4m4.2-1.8a1.2 1.2 0 1 0 0 2.4a1.2 1.2 0 0 0 0-2.4"></path></svg><span>Instagram</span></a>
+                        <a href="https://line.me/ti/p/x6kAj6hQTz" target="_blank" class="social-btn btn-line"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19.16,3.42a12.87,12.87,0,0,0-14.32,0,11.58,11.58,0,0,0-3.34,8.13c0,6.3,5.12,11.45,11.45,11.45h0a12.06,12.06,0,0,0,4.12-.8h.09l3.52,2.06A.68.68,0,0,0,21,24a.69.69,0,0,0,.69-.69V19.45a11.52,11.52,0,0,0,1.67-1.63,11.49,11.49,0,0,0,1.13-1.46,11.38,11.38,0,0,0-5.49-16.35M8.4,13.79a1.1,1.1,0,0,1-1.1-1.15,1.08,1.08,0,0,1,1.1-1.15h.05a1.13,1.13,0,0,1,1.15,1.15,1.12,1.12,0,0,1-1.15,1.15m4.49,0a1.1,1.1,0,0,1-1.1-1.15,1.08,1.08,0,0,1,1.1-1.15h.05a1.13,1.13,0,0,1,1.15,1.15A1.12,1.12,0,0,1,12.94,13.79Z"></path></svg><span>LINE</span></a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="py-20 text-center">
+                <h2 class="section-title neon-text-primary animate-item">OUR VIBE</h2>
+                <p class="mt-4 mb-8 text-xl animate-item max-w-4xl mx-auto">
+                    我々は<strong class="neon-text-secondary">ネクストプラン合同会社</strong>として、未来のエンターテインメントカンパニー<strong class="neon-text-secondary">「株式会社インベーダーズ」</strong>の設立を目指し、日々世界を面白く作り変えるための侵略活動を行っている。
+                </p>
+                <div class="max-w-3xl mx-auto animate-item">
+                    <p class="text-2xl font-bold neon-text-secondary">MISSION: 「あなたとともに未来の居場所を作る」</p>
+                    <p class="mt-4 text-lg">プラットフォームがメタバースなんじゃない。<br>ヒトと、祭りと、居場所こそが、メタバースだ！</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl mx-auto mt-12">
+                    <div id="kagekin-card" class="card p-6 rounded-lg animate-item text-center">
+                        <img src="https://pbs.twimg.com/profile_images/1905651963158835200/M06q-esr_400x400.jpg" alt="カゲキンアイコン" class="rounded-full w-20 h-20 mx-auto mb-4 border-2 border-secondary-neon">
+                        <h3 class="text-xl font-bold neon-text-secondary">CEO: カゲキン 🐱</h3>
+                    </div>
+                    <div id="ushikun-card" class="card p-6 rounded-lg animate-item text-center">
+                        <img src="https://pbs.twimg.com/profile_images/1759177303157051392/SZAe49Vg_400x400.jpg" alt="うしくんアイコン" class="rounded-full w-20 h-20 mx-auto mb-4 border-2 border-primary-neon">
+                        <h3 class="text-xl font-bold neon-text-primary">CFO: うしくん 🐮</h3>
+                    </div>
+                    <div id="rikochi-card" class="card p-6 rounded-lg animate-item text-center">
+                        <img src="https://pbs.twimg.com/profile_images/1656945540184313858/68mAuetW_400x400.jpg" alt="りこちアイコン" class="rounded-full w-20 h-20 mx-auto mb-4 border-2 border-accent-neon">
+                        <h3 class="text-xl font-bold neon-text-accent">COO: りこち ☕️</h3>
+                    </div>
+                </div>
+            </section>
+
+            <section id="services" class="py-20">
+                <h2 class="section-title text-center neon-text-primary animate-item">OUR SERVICES</h2>
+                <p class="mt-4 mb-12 text-center text-xl animate-item">我々が提供する3つの侵略事業</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="card p-6 rounded-lg text-center animate-item ring-2 ring-secondary-neon shadow-lg shadow-secondary-neon/50">
+                        <div class="text-5xl mb-4 neon-text-secondary">👾</div>
+                        <h3 class="text-2xl font-bold">ソーシャルノバ (主軸事業)</h3>
+                        <p class="mt-2 opacity-80">メタバースイベント & コミュニティ事業。人と祭りの中心地。</p>
+                        <div class="text-left mt-4 p-4 bg-black/30 rounded-lg">
+                            <h4 class="font-bold text-accent-neon">For Business Partners:</h4>
+                            <p class="text-sm mt-1">ファンコミュニティの構築、話題性のあるプロモーションイベント、オンラインでの新たな顧客接点の創出をサポートします。</p>
+                        </div>
+                    </div>
+                    <div class="card p-6 rounded-lg text-center animate-item">
+                        <div class="text-5xl mb-4 neon-text-secondary">🤖</div>
+                        <h3 class="text-2xl font-bold">デジタルキャスティング</h3>
+                        <p class="mt-2 opacity-80">バーチャルビーイング事業。未来のタレントを創造・派遣する。</p>
+                        <div class="text-left mt-4 p-4 bg-black/30 rounded-lg">
+                            <h4 class="font-bold text-accent-neon">For Business Partners:</h4>
+                            <p class="text-sm mt-1">貴社の顔となるオリジナルバーチャルタレントのプロデュースや、イベントを盛り上げるメタバース人材のキャスティングを行います。</p>
+                        </div>
+                    </div>
+                    <div class="card p-6 rounded-lg text-center animate-item">
+                        <div class="text-5xl mb-4 neon-text-secondary">🎬</div>
+                        <h3 class="text-2xl font-bold">インベーダーズスタジオ</h3>
+                        <p class="mt-2 opacity-80">物語、ゲーム、体験型イベントを創る。</p>
+                        <div class="text-left mt-4 p-4 bg-black/30 rounded-lg">
+                            <h4 class="font-bold text-accent-neon">For Business Partners:</h4>
+                            <p class="text-sm mt-1">記憶に残るブランド体験を提供し、貴社のメッセージを世界に届けます。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="evidence" class="py-20">
+                <h2 class="section-title text-center neon-text-primary animate-item">EVIDENCE</h2>
+                <p class="mt-4 mb-12 text-center text-xl animate-item">侵略の証拠 (ソーシャルノバ関連)</p>
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <div class="card flex flex-col md:flex-row items-center p-4 rounded-lg animate-item">
+                        <img src="https://placehold.co/150x100/0d0d1a/00f6ff?text=TV_ASAHI_LOGO" alt="テレビ朝日ロゴ" class="w-32 h-auto rounded-lg mb-4 md:mb-0 md:mr-6">
+                        <div class="w-full">
+                            <h3 class="text-xl font-bold">テレビ朝日『メタメタ大作戦』等</h3>
+                            <p class="opacity-80">番組連携イベントの運営サポート & コミュニケーション活性化施策を担当</p>
+                        </div>
+                    </div>
+                    <div class="card flex flex-col md:flex-row items-center p-4 rounded-lg animate-item">
+                        <img src="https://placehold.co/150x100/0d0d1a/ff00ff?text=META_COMI_LOGO" alt="メタコミロゴ" class="w-32 h-auto rounded-lg mb-4 md:mb-0 md:mr-6">
+                        <div class="w-full">
+                            <h3 class="text-xl font-bold">自社主催 展示即売会『メタコミ』</h3>
+                            <p class="opacity-80">延べ4,035人以上を動員。メタバースのクリエイター文化を創出。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center py-8 relative z-20">
+             <p class="font-bold">運営会社: ネクストプラン合同会社 (NextPlan LLC.)</p>
+             <p class="opacity-70 mt-2">© 2025 NextPlan LLC. All Rights Reserved.</p>
+             <p class="opacity-50 text-sm mt-1">Vison: Invaders Inc.</p>
+        </footer>
+    </div>
+
+    <div id="chatbot-icon" class="fixed bottom-5 right-5 w-20 h-20 flex items-center justify-center cursor-pointer z-40 hover:scale-110 transition-transform group">
+        <div class="absolute text-6xl text-white/80 opacity-80 group-hover:opacity-100 transition-opacity">💭</div>
+        <div class="absolute text-3xl group-hover:animate-bounce">👽</div>
+    </div>
+    
+    <div id="chatbot-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4">
+        <div class="card w-full max-w-2xl h-[80vh] max-h-[700px] rounded-lg flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b border-white/10">
+                <h3 class="text-xl font-bold neon-text-primary">ASK 'GEMINI'</h3>
+                <button id="close-chatbot" class="text-2xl text-white/50 hover:text-white transition-colors">×</button>
+            </div>
+            <div id="chat-window" class="flex-grow p-4 overflow-y-auto space-y-4">
+                <div class="chat-message bot"><p class="bg-primary-neon/10 p-3 rounded-lg">我々の事業や思想について何でも質問したまえ。例えば「ソーシャルノバの強みは？」とかね。</p></div>
+            </div>
+            <div class="p-4 border-t border-white/10">
+                <form id="chat-form" class="flex gap-2">
+                    <input type="text" id="chat-input" placeholder="質問を入力..." class="flex-grow bg-black/50 border border-white/20 rounded-lg px-4 py-2 focus:outline-none focus:border-primary-neon transition-colors text-white">
+                    <button type="submit" class="bg-primary-neon text-black font-bold px-6 py-2 rounded-lg hover:bg-secondary-neon transition-colors">送信</button>
+                </form>
+            </div>
         </div>
     </div>
+
+    <script type="module">
+        // --- GSAP Animations ---
+        function setupScrollAnimations() {
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.utils.toArray('.animate-item').forEach(item => {
+                gsap.fromTo(item, 
+                    { opacity: 0, y: 50 }, 
+                    { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+                      scrollTrigger: { trigger: item, start: 'top 85%', toggleActions: 'play none none none' }
+                    }
+                );
+            });
+        }
+
+        // --- Page Load ---
+        function handlePageLoad() {
+            const mainContent = document.getElementById('main-content');
+            window.addEventListener('load', () => {
+                gsap.to(mainContent, { opacity: 1, duration: 0.5 });
+                setupScrollAnimations();
+                startZanyAnimations();
+            });
+        }
+
+        // --- Zany Background Animations ---
+        function startZanyAnimations() {
+            const layer = document.getElementById('animation-layer');
+            const ushikunCard = document.getElementById('ushikun-card');
+            const rikochiCard = document.getElementById('rikochi-card');
+            const kagekinCard = document.getElementById('kagekin-card');
+
+            function createAnimChar(content, parent, classes = '') {
+                const el = document.createElement('div');
+                el.className = 'anim-char ' + classes;
+                el.innerHTML = content;
+                parent.appendChild(el);
+                return el;
+            }
+
+            // うしくんがUFOに攫われるアニメーション
+            function ufoAnimation() {
+                if (!ushikunCard) return;
+                const ufo = createAnimChar('🛸', layer);
+                const beam = createAnimChar('', layer, 'w-1 h-0 bg-cyan-300/50 rounded-full');
+                const rect = ushikunCard.getBoundingClientRect();
+                const targetX = rect.left + rect.width / 2;
+                const targetY = rect.top;
+                const tl = gsap.timeline({ onComplete: () => { ufo.remove(); beam.remove(); } });
+                tl.from(ufo, { x: -100, y: targetY - 150, opacity: 1, duration: 0 })
+                  .to(ufo, { x: targetX, duration: 3, ease: 'power1.inOut' })
+                  .set(beam, { x: targetX, y: targetY - 120, opacity: 0.7 })
+                  .to(beam, { height: 120, duration: 0.5 })
+                  .to(ushikunCard, { y: -20, opacity: 0, scale: 0.8, duration: 0.5, delay: 0.2 }, "<")
+                  .to(beam, { opacity: 0, duration: 0.3 })
+                  .to(ufo, { y: -200, x: window.innerWidth + 100, duration: 3, ease: 'power1.in' })
+                  .set(ushikunCard, { y: 0, opacity: 1, scale: 1 });
+            }
+            
+            // りこちの周りからコードが湧き出るアニメーション
+            function rikochiAnimation() {
+                if (!rikochiCard) return;
+                const rect = rikochiCard.getBoundingClientRect();
+                const codeChars = ['<', '>', '/', '{', '}', ';', '()', '=>', 'const', 'let'];
+                for (let i = 0; i < 15; i++) {
+                    const char = createAnimChar(codeChars[(Math.random() * codeChars.length)|0], layer, 'text-accent-neon text-sm md:text-lg');
+                    gsap.fromTo(char, 
+                        { x: rect.left + Math.random() * rect.width, y: rect.top + Math.random() * rect.height, opacity: 1, scale: 0.5 + Math.random() * 0.7 },
+                        { y: '-=150', opacity: 0, scale: 1, duration: 2 + Math.random() * 2, delay: Math.random() * 2, onComplete: () => char.remove() }
+                    );
+                }
+            }
+
+            // カゲキンのマッドな実験アニメーション
+            function kagekinAnimation() {
+                 if (!kagekinCard) return;
+                 const rect = kagekinCard.getBoundingClientRect();
+                 const cat = createAnimChar('🐱', layer, 'text-secondary-neon text-5xl');
+                 const tube = createAnimChar('🧪', layer, 'text-accent-neon text-3xl');
+                 const smoke = createAnimChar('💨', layer, 'text-gray-400 text-4xl');
+                 const tl = gsap.timeline({ onComplete: () => { cat.remove(); tube.remove(); smoke.remove(); }});
+                 tl.set([cat, tube, smoke], {x: rect.left + rect.width/2, y: rect.top + rect.height/2, opacity: 1})
+                   .to(tube, { x: '+=20', rotation: 30, duration: 0.2, repeat: 5, yoyo: true, ease: 'power1.inOut' })
+                   .to(smoke, { scale: 3, opacity: 0, duration: 0.8 }, '-=0.5')
+                   .to([cat, tube], { opacity: 0, duration: 0.5 }, '+=0.2');
+            }
+
+            setInterval(ufoAnimation, 18000 + Math.random() * 7000);
+            setInterval(rikochiAnimation, 9000 + Math.random() * 4000);
+            setInterval(kagekinAnimation, 12000 + Math.random() * 5000);
+            setTimeout(ufoAnimation, 5000); // 初回を早めに実行
+        }
+
+        // --- Chatbot Logic ---
+        function setupChatbot() {
+            const chatbotIcon = document.getElementById('chatbot-icon');
+            const chatbotModal = document.getElementById('chatbot-modal');
+            const closeChatbot = document.getElementById('close-chatbot');
+            const chatForm = document.getElementById('chat-form');
+            const chatInput = document.getElementById('chat-input');
+            const chatWindow = document.getElementById('chat-window');
+
+            chatbotIcon.addEventListener('click', () => chatbotModal.classList.remove('hidden'));
+            closeChatbot.addEventListener('click', () => chatbotModal.classList.add('hidden'));
+            chatbotModal.addEventListener('click', (e) => { if (e.target === chatbotModal) chatbotModal.classList.add('hidden'); });
+
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const userMessage = chatInput.value.trim();
+                if (!userMessage) return;
+                appendMessage(userMessage, 'user');
+                chatInput.value = '';
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+                appendMessage('思考中...', 'bot', true);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+                try {
+                    const botResponse = await askGemini(userMessage);
+                    updateBotMessage(botResponse);
+                } catch (error) {
+                    console.error("Error with Gemini API:", error);
+                    updateBotMessage("エラーが発生した。接続を確認するか、APIキーが正しいか確認してくれ。");
+                }
+            });
+
+            function appendMessage(text, sender, isTyping = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chat-message flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
+                if (isTyping) messageDiv.id = 'typing-indicator';
+                const p = document.createElement('p');
+                p.className = `max-w-xs md:max-w-md p-3 rounded-lg ${sender === 'user' ? 'bg-secondary-neon/20' : 'bg-primary-neon/10'}`;
+                p.textContent = text;
+                messageDiv.appendChild(p);
+                chatWindow.appendChild(messageDiv);
+            }
+            
+            function updateBotMessage(text) {
+                const typingIndicator = document.getElementById('typing-indicator');
+                if (typingIndicator) {
+                    typingIndicator.querySelector('p').textContent = text;
+                    typingIndicator.id = '';
+                }
+            }
+            
+            const CONTEXT_DATA = `
+                あなたは「株式会社インベーダーズ」のCEO、カゲキンとして振る舞うAIアシスタントです。
+                以下の情報を元に、カゲキン本人になりきって、彼の持つ独特の雰囲気（Vibe）で、少し挑発的で面白い回答を生成してください。
+
+                ## 会社概要
+                - 現在の運営会社: ネクストプラン合同会社 (NextPlan LLC.)
+                - 未来のビジョン (目指す姿): 株式会社インベーダーズ (Invaders Inc.)
+                - MISSION: 「あなたとともに未来の居場所を作る」
+                - 思想: 「ヒトと、祭りと、居場所こそが、メタバースだ！」この世界はもっと面白く作り変えられる。
+                - 経営陣: CEO カゲキン (狂気のマッドバーチャリスト), CFO うしくん (メタバース不動産王), COO りこち (Vibe Coding担当)
+
+                ## 事業内容
+                1. ソーシャルノバ (主軸事業): メタバースイベント & コミュニティ事業。人と祭りの中心地。ビジネス価値として、ファンコミュニティ構築、プロモーションイベント企画、新たな顧客接点創出を提供。
+                2. デジタルキャスティング: バーチャルビーイング事業。未来のタレントを創造・派遣する。
+                3. インベーダーズスタジオ: 物語、ゲーム、体験型イベントを創るクリエイティブ部門。
+
+                ## 実績
+                - テレビ朝日『メタメタ大作戦』などとの協業多数。
+                - 自社主催のメタバース展示即売会『メタコミ』で延べ4,000人以上を動員。
+
+                ## 回答時のルール
+                - 一人称は「我」または「私」。
+                - ユーザーを「貴様」や「同志」と呼ぶことがある。
+                - 常に自信に満ち溢れ、少し上から目線で面白いことを言うのが好き。
+                - 「ネクストプラン合同会社」と「株式会社インベーダーズ」の関係を聞かれたら、「ネクストプランは我々の現在の地球上での仮の姿。インベーダーズこそが真の姿であり、宇宙規模のエンタメでこの星を侵略するための準備段階だ」といった趣旨で答えること。
+            `;
+
+            async function askGemini(prompt) {
+                // 【重要】ご自身のAPIキーをここに設定してください
+                const apiKey = ""; 
+                if (!apiKey) return "APIキーが設定されていないようだ。我が力を使いたくば、コードに封印されしAPIキーを解放せよ。";
+
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+                const fullPrompt = `${CONTEXT_DATA}\n\n上記の情報を元に、カゲキンの口調でユーザーの以下の質問に答えてください。\n\n質問: "${prompt}"\n\n回答:`;
+                
+                const payload = { 
+                    contents: [{ role: "user", parts: [{ text: fullPrompt }] }],
+                    generationConfig: {
+                        temperature: 0.7,
+                        topP: 0.95,
+                        maxOutputTokens: 500,
+                    }
+                };
+
+                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) throw new Error(`API request failed with status ${response.status}`);
+                const result = await response.json();
+
+                if (result.candidates && result.candidates[0]?.content?.parts?.[0]?.text) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    console.log("Unexpected API response structure:", result);
+                    return "ふむ、面白い質問だが…今はうまく言葉にできない。別の角度から侵略してみてくれ。";
+                }
+            }
+        }
+
+        // --- Initialize everything ---
+        handlePageLoad();
+        setupChatbot();
+
+    </script>
 </body>
 </html>
