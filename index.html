@@ -243,7 +243,24 @@
                 return el;
             }
 
-            function ufoAnimation() {
+            function randomUfoFlybyAnimation() {
+                const ufo = createAnimChar('🛸', layer, 'opacity-70');
+                const startY = Math.random() * window.innerHeight * 0.5;
+                const duration = 10 + Math.random() * 10;
+                const scale = 0.6 + Math.random() * 0.7;
+
+                gsap.fromTo(ufo, 
+                    { y: startY, x: -100, scale: scale, opacity: 1 },
+                    { 
+                        x: window.innerWidth + 100, 
+                        duration: duration, 
+                        ease: 'none',
+                        onComplete: () => ufo.remove()
+                    }
+                );
+            }
+
+            function ufoAbductionAnimation() {
                 if (!ushikunCard) return;
                 const ufo = createAnimChar('🛸', layer);
                 const beam = createAnimChar('', layer, 'w-1 h-0 bg-cyan-300/50 rounded-full');
@@ -286,11 +303,12 @@
                    .to(smoke, { scale: 3, opacity: 0, duration: 0.8 }, '-=0.5')
                    .to([cat, tube], { opacity: 0, duration: 0.5 }, '+=0.2');
             }
-
-            setInterval(ufoAnimation, 18000 + Math.random() * 7000);
+            
+            setInterval(randomUfoFlybyAnimation, 7000 + Math.random() * 6000);
+            setInterval(ufoAbductionAnimation, 18000 + Math.random() * 7000);
             setInterval(rikochiAnimation, 9000 + Math.random() * 4000);
             setInterval(kagekinAnimation, 12000 + Math.random() * 5000);
-            setTimeout(ufoAnimation, 5000);
+            setTimeout(ufoAbductionAnimation, 5000);
         }
 
         // --- Chatbot Logic ---
