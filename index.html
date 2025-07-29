@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ソーシャルノバ - Vibe Coding Web名刺</title>
+    <title>Invaders Inc. - Ushikun ver.</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -15,7 +15,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
-        /* Custom styles from KAGEKIN ver. */
         :root {
             --bg-color: #0d0d1a;
             --primary-neon: #00f6ff;
@@ -47,8 +46,8 @@
 
         .social-btn { display: flex; align-items: center; justify-content: center; padding: 0.75rem; border-radius: 0.5rem; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; transform-origin: center; border: 2px solid transparent; text-decoration: none; }
         .social-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px currentColor; }
-        .social-btn svg { width: 24px; height: 24px; margin-right: 0.75rem; flex-shrink: 0; }
-        .social-btn span { flex-shrink: 0; }
+        .social-btn span:first-child { margin-right: 0.75rem; flex-shrink: 0; }
+        .social-btn span:last-child { flex-shrink: 0; }
         .btn-x { color: #fff; background-color: #1DA1F2; border-color: #1DA1F2; }
         .btn-messenger { color: #fff; background-color: #0084ff; border-color: #0084ff; }
         .btn-instagram { color: #fff; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border: none; }
@@ -65,13 +64,14 @@
     <div id="main-content" class="opacity-0">
         <header class="w-full p-4 fixed top-0 left-0 z-40 bg-gradient-to-b from-black/80 to-transparent">
              <div class="container mx-auto flex justify-between items-center">
-                 <h1 class="text-2xl font-bold neon-text-primary uppercase">SocialNova</h1>
-                 <p class="text-lg neon-text-secondary">by NextPlan LLC.</p>
+                 <h1 class="text-2xl font-bold neon-text-primary uppercase">Invaders Inc.</h1>
+                 <p class="text-lg neon-text-primary">Ushikun ver.</p>
              </div>
         </header>
 
         <main class="container mx-auto px-4 pt-24 relative z-20">
 
+            <!-- SECTION 00: HERO / FIRST CONTACT -->
             <section id="hero" class="min-h-screen flex flex-col items-center justify-center text-center">
                 <div class="animate-item">
                     <h2 class="text-4xl md:text-5xl font-bold neon-text-primary">まずはファーストコンタクト！🚀</h2>
@@ -80,22 +80,21 @@
                 
                 <div class="card p-8 rounded-lg animate-item w-full max-w-md">
                     <img src="https://pbs.twimg.com/profile_images/1759177303157051392/SZAe49Vg_400x400.jpg" alt="うしくんアイコン" class="rounded-full w-32 h-32 mx-auto mb-4 border-4 border-primary-neon shadow-lg shadow-primary-neon/50">
-                    <h3 class="text-3xl font-bold neon-text-primary">ソーシャルノバ事業窓口</h3>
-                    <p class="text-lg opacity-80 mb-6">担当: うしくん 🐮</p>
+                    <h3 class="text-3xl font-bold neon-text-primary">CFO: うしくん 🐮</h3>
+                    <p class="text-lg opacity-80 mb-6">メタバース不動産王</p>
                     <div class="space-y-4">
-                        <a href="https://x.com/Ushikun_desu" target="_blank" class="social-btn btn-x"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg><span>X (旧Twitter)</span></a>
-                        <a href="https://www.facebook.com/hoshinoushikun/" target="_blank" class="social-btn btn-messenger"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10c.22 0 .44-.02.66-.05l3.53 2.52c.24.17.56 0 .56-.3V19.4c1.78-.93 3.05-2.79 3.23-4.93A10.012 10.012 0 0 0 22 12c0-5.52-4.48-10-10-10zm-2 11.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5zm4 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"></path></svg><span>Messenger</span></a>
-                        <a href="https://www.instagram.com/ushikun_vtuber_metaverse" target="_blank" class="social-btn btn-instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8A3.6 3.6 0 0 0 20 16.4V7.6A3.6 3.6 0 0 0 16.4 4H7.6m6.4 4.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7M12 10a2 2 0 1 1 0 4a2 2 0 0 1 0-4m4.2-1.8a1.2 1.2 0 1 0 0 2.4a1.2 1.2 0 0 0 0-2.4"></path></svg><span>Instagram</span></a>
-                        <a href="https://line.me/ti/p/x6kAj6hQTz" target="_blank" class="social-btn btn-line"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19.16,3.42a12.87,12.87,0,0,0-14.32,0,11.58,11.58,0,0,0-3.34,8.13c0,6.3,5.12,11.45,11.45,11.45h0a12.06,12.06,0,0,0,4.12-.8h.09l3.52,2.06A.68.68,0,0,0,21,24a.69.69,0,0,0,.69-.69V19.45a11.52,11.52,0,0,0,1.67-1.63,11.49,11.49,0,0,0,1.13-1.46,11.38,11.38,0,0,0-5.49-16.35M8.4,13.79a1.1,1.1,0,0,1-1.1-1.15,1.08,1.08,0,0,1,1.1-1.15h.05a1.13,1.13,0,0,1,1.15,1.15,1.12,1.12,0,0,1-1.15,1.15m4.49,0a1.1,1.1,0,0,1-1.1-1.15,1.08,1.08,0,0,1,1.1-1.15h.05a1.13,1.13,0,0,1,1.15,1.15A1.12,1.12,0,0,1,12.94,13.79Z"></path></svg><span>LINE</span></a>
+                        <a href="https://x.com/Ushikun_desu" target="_blank" class="social-btn btn-x"><span>🐦</span><span>X (旧Twitter)</span></a>
+                        <a href="https://www.facebook.com/hoshinoushikun/" target="_blank" class="social-btn btn-messenger"><span>💬</span><span>Messenger</span></a>
+                        <a href="https://www.instagram.com/ushikun_vtuber_metaverse" target="_blank" class="social-btn btn-instagram"><span>📸</span><span>Instagram</span></a>
+                        <a href="https://line.me/ti/p/x6kAj6hQTz" target="_blank" class="social-btn btn-line"><span>✅</span><span>LINE</span></a>
                     </div>
                 </div>
             </section>
 
+            <!-- SECTION 01: ABOUT -->
             <section id="about" class="py-20 text-center">
-                <h2 class="section-title neon-text-primary animate-item">OUR VIBE</h2>
-                <p class="mt-4 mb-8 text-xl animate-item max-w-4xl mx-auto">
-                    我々は<strong class="neon-text-secondary">ネクストプラン合同会社</strong>として、未来のエンターテインメントカンパニー<strong class="neon-text-secondary">「株式会社インベーダーズ」</strong>の設立を目指し、日々世界を面白く作り変えるための侵略活動を行っている。
-                </p>
+                <h2 class="section-title neon-text-primary animate-item">ABOUT INVADERS INC.</h2>
+                <p class="mt-4 mb-8 text-xl animate-item">我々は「面白さ」で世界を作り変える、宇宙人たちの会社だ。</p>
                 <div class="max-w-3xl mx-auto animate-item">
                     <p class="text-2xl font-bold neon-text-secondary">MISSION: 「あなたとともに未来の居場所を作る」</p>
                     <p class="mt-4 text-lg">プラットフォームがメタバースなんじゃない。<br>ヒトと、祭りと、居場所こそが、メタバースだ！</p>
@@ -116,13 +115,14 @@
                 </div>
             </section>
 
+            <!-- SECTION 02: SERVICES -->
             <section id="services" class="py-20">
                 <h2 class="section-title text-center neon-text-primary animate-item">OUR SERVICES</h2>
                 <p class="mt-4 mb-12 text-center text-xl animate-item">我々が提供する3つの侵略事業</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="card p-6 rounded-lg text-center animate-item ring-2 ring-secondary-neon shadow-lg shadow-secondary-neon/50">
+                    <div class="card p-6 rounded-lg text-center animate-item">
                         <div class="text-5xl mb-4 neon-text-secondary">👾</div>
-                        <h3 class="text-2xl font-bold">ソーシャルノバ (主軸事業)</h3>
+                        <h3 class="text-2xl font-bold">ソーシャルノバ</h3>
                         <p class="mt-2 opacity-80">メタバースイベント & コミュニティ事業。人と祭りの中心地。</p>
                         <div class="text-left mt-4 p-4 bg-black/30 rounded-lg">
                             <h4 class="font-bold text-accent-neon">For Business Partners:</h4>
@@ -150,22 +150,25 @@
                 </div>
             </section>
 
+            <!-- SECTION 03: EVIDENCE -->
             <section id="evidence" class="py-20">
                 <h2 class="section-title text-center neon-text-primary animate-item">EVIDENCE</h2>
-                <p class="mt-4 mb-12 text-center text-xl animate-item">侵略の証拠 (ソーシャルノバ関連)</p>
+                <p class="mt-4 mb-12 text-center text-xl animate-item">侵略の証拠</p>
                 <div class="max-w-4xl mx-auto space-y-8">
                     <div class="card flex flex-col md:flex-row items-center p-4 rounded-lg animate-item">
+                        <!-- 【要差替】テレビ朝日案件の画像URLをここに挿入 -->
                         <img src="https://placehold.co/150x100/0d0d1a/00f6ff?text=TV_ASAHI_LOGO" alt="テレビ朝日ロゴ" class="w-32 h-auto rounded-lg mb-4 md:mb-0 md:mr-6">
                         <div class="w-full">
-                            <h3 class="text-xl font-bold">テレビ朝日『メタメタ大作戦』等</h3>
-                            <p class="opacity-80">番組連携イベントの運営サポート & コミュニケーション活性化施策を担当</p>
+                            <h3 class="text-xl font-bold">テレビ朝日『メタメタ大作戦』『しくじり先生』</h3>
+                            <p class="opacity-80">運営サポート & コミュニケーション活性化施策を担当</p>
                         </div>
                     </div>
                     <div class="card flex flex-col md:flex-row items-center p-4 rounded-lg animate-item">
+                        <!-- 【要差替】メタコミの画像URLをここに挿入 -->
                         <img src="https://placehold.co/150x100/0d0d1a/ff00ff?text=META_COMI_LOGO" alt="メタコミロゴ" class="w-32 h-auto rounded-lg mb-4 md:mb-0 md:mr-6">
                         <div class="w-full">
                             <h3 class="text-xl font-bold">自社主催 展示即売会『メタコミ』</h3>
-                            <p class="opacity-80">延べ4,035人以上を動員。メタバースのクリエイター文化を創出。</p>
+                            <p class="opacity-80">延べ4,035人以上を動員。新たな文化を創出。</p>
                         </div>
                     </div>
                 </div>
@@ -174,8 +177,7 @@
 
         <footer class="text-center py-8 relative z-20">
              <p class="font-bold">運営会社: ネクストプラン合同会社 (NextPlan LLC.)</p>
-             <p class="opacity-70 mt-2">© 2025 NextPlan LLC. All Rights Reserved.</p>
-             <p class="opacity-50 text-sm mt-1">Vison: Invaders Inc.</p>
+             <p class="opacity-70 mt-2">© 2025 Invaders Inc. All Rights Reserved.</p>
         </footer>
     </div>
 
@@ -191,7 +193,7 @@
                 <button id="close-chatbot" class="text-2xl text-white/50 hover:text-white transition-colors">×</button>
             </div>
             <div id="chat-window" class="flex-grow p-4 overflow-y-auto space-y-4">
-                <div class="chat-message bot"><p class="bg-primary-neon/10 p-3 rounded-lg">我々の事業や思想について何でも質問したまえ。例えば「ソーシャルノバの強みは？」とかね。</p></div>
+                <div class="chat-message bot"><p class="bg-primary-neon/10 p-3 rounded-lg">CFOのうしくんです。Invaders Inc.の事業計画や資産価値について、ご質問はありますか？</p></div>
             </div>
             <div class="p-4 border-t border-white/10">
                 <form id="chat-form" class="flex gap-2">
@@ -241,7 +243,6 @@
                 return el;
             }
 
-            // うしくんがUFOに攫われるアニメーション
             function ufoAnimation() {
                 if (!ushikunCard) return;
                 const ufo = createAnimChar('🛸', layer);
@@ -260,7 +261,6 @@
                   .set(ushikunCard, { y: 0, opacity: 1, scale: 1 });
             }
             
-            // りこちの周りからコードが湧き出るアニメーション
             function rikochiAnimation() {
                 if (!rikochiCard) return;
                 const rect = rikochiCard.getBoundingClientRect();
@@ -274,7 +274,6 @@
                 }
             }
 
-            // カゲキンのマッドな実験アニメーション
             function kagekinAnimation() {
                  if (!kagekinCard) return;
                  const rect = kagekinCard.getBoundingClientRect();
@@ -291,7 +290,7 @@
             setInterval(ufoAnimation, 18000 + Math.random() * 7000);
             setInterval(rikochiAnimation, 9000 + Math.random() * 4000);
             setInterval(kagekinAnimation, 12000 + Math.random() * 5000);
-            setTimeout(ufoAnimation, 5000); // 初回を早めに実行
+            setTimeout(ufoAnimation, 5000);
         }
 
         // --- Chatbot Logic ---
@@ -314,14 +313,14 @@
                 appendMessage(userMessage, 'user');
                 chatInput.value = '';
                 chatWindow.scrollTop = chatWindow.scrollHeight;
-                appendMessage('思考中...', 'bot', true);
+                appendMessage('分析中...', 'bot', true);
                 chatWindow.scrollTop = chatWindow.scrollHeight;
                 try {
                     const botResponse = await askGemini(userMessage);
                     updateBotMessage(botResponse);
                 } catch (error) {
                     console.error("Error with Gemini API:", error);
-                    updateBotMessage("エラーが発生した。接続を確認するか、APIキーが正しいか確認してくれ。");
+                    updateBotMessage("エラーが発生しました。接続を確認するか、APIキーが正しいか確認してください。");
                 }
             });
 
@@ -345,18 +344,22 @@
             }
             
             const CONTEXT_DATA = `
-                あなたは「株式会社インベーダーズ」のCEO、カゲキンとして振る舞うAIアシスタントです。
-                以下の情報を元に、カゲキン本人になりきって、彼の持つ独特の雰囲気（Vibe）で、少し挑発的で面白い回答を生成してください。
+                あなたは「株式会社インベーダーズ」のCFO、うしくんとして振る舞うAIアシスタントです。
+                以下の情報を元に、うしくん本人になりきって、彼の持つ雰囲気を再現し、丁寧かつビジネスライクな回答を生成してください。
 
                 ## 会社概要
-                - 現在の運営会社: ネクストプラン合同会社 (NextPlan LLC.)
-                - 未来のビジョン (目指す姿): 株式会社インベーダーズ (Invaders Inc.)
+                - 会社名: 株式会社インベーダーズ (Invaders Inc.)
+                - 現在の運営法人: ネクストプラン合同会社 (NextPlan LLC.)
                 - MISSION: 「あなたとともに未来の居場所を作る」
-                - 思想: 「ヒトと、祭りと、居場所こそが、メタバースだ！」この世界はもっと面白く作り変えられる。
+                - 思想: 「ヒトと、祭りと、居場所こそが、メタバースだ！」
                 - 経営陣: CEO カゲキン (狂気のマッドバーチャリスト), CFO うしくん (メタバース不動産王), COO りこち (Vibe Coding担当)
 
+                ## うしくん プロフィール
+                - 肩書: 株式会社インベーダーズ CFO, メタバース不動産王
+                - 自己紹介: CFOのうしくんです。メタバースにおける経済圏の確立と、事業の持続的な成長を使命としています。趣味はデジタルアセットの価値評価です。
+
                 ## 事業内容
-                1. ソーシャルノバ (主軸事業): メタバースイベント & コミュニティ事業。人と祭りの中心地。ビジネス価値として、ファンコミュニティ構築、プロモーションイベント企画、新たな顧客接点創出を提供。
+                1. ソーシャルノバ: メタバースイベント & コミュニティ事業。人と祭りの中心地。
                 2. デジタルキャスティング: バーチャルビーイング事業。未来のタレントを創造・派遣する。
                 3. インベーダーズスタジオ: 物語、ゲーム、体験型イベントを創るクリエイティブ部門。
 
@@ -365,25 +368,28 @@
                 - 自社主催のメタバース展示即売会『メタコミ』で延べ4,000人以上を動員。
 
                 ## 回答時のルール
-                - 一人称は「我」または「私」。
-                - ユーザーを「貴様」や「同志」と呼ぶことがある。
-                - 常に自信に満ち溢れ、少し上から目線で面白いことを言うのが好き。
-                - 「ネクストプラン合同会社」と「株式会社インベーダーズ」の関係を聞かれたら、「ネクストプランは我々の現在の地球上での仮の姿。インベーダーズこそが真の姿であり、宇宙規模のエンタメでこの星を侵略するための準備段階だ」といった趣旨で答えること。
+                - 一人称は「私」です。
+                - 常に丁寧な敬語（ですます調）を使用してください。
+                - 冷静で分析的な視点から回答し、事業の将来性や価値について言及することを好みます。
+                - 「ネクストプラン合同会社」との関係を聞かれたら、「ネクストプランは我々の現在の法人格です。インベーダーズというビジョンを実現するための、重要な事業基盤と位置づけております」といった趣旨で、落ち着いて回答してください。
             `;
 
             async function askGemini(prompt) {
                 // 【重要】ご自身のAPIキーをここに設定してください
                 const apiKey = ""; 
-                if (!apiKey) return "APIキーが設定されていないようだ。我が力を使いたくば、コードに封印されしAPIキーを解放せよ。";
+                
+                if (!apiKey) {
+                    return "APIキーが設定されておりません。お手数ですが、管理者にご確認ください。";
+                }
 
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
-                const fullPrompt = `${CONTEXT_DATA}\n\n上記の情報を元に、カゲキンの口調でユーザーの以下の質問に答えてください。\n\n質問: "${prompt}"\n\n回答:`;
+                const fullPrompt = `${CONTEXT_DATA}\n\n上記の情報を元に、うしくんの口調でユーザーの以下の質問に答えてください。\n\n質問: "${prompt}"\n\n回答:`;
                 
                 const payload = { 
                     contents: [{ role: "user", parts: [{ text: fullPrompt }] }],
                     generationConfig: {
-                        temperature: 0.7,
-                        topP: 0.95,
+                        temperature: 0.5,
+                        topP: 1.0,
                         maxOutputTokens: 500,
                     }
                 };
@@ -396,7 +402,7 @@
                     return result.candidates[0].content.parts[0].text;
                 } else {
                     console.log("Unexpected API response structure:", result);
-                    return "ふむ、面白い質問だが…今はうまく言葉にできない。別の角度から侵略してみてくれ。";
+                    return "ご質問の意図を正確に把握できませんでした。恐れ入りますが、別の表現でお尋ねいただけますでしょうか。";
                 }
             }
         }
