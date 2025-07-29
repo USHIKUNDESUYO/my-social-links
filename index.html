@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invaders Inc. - Ushikun ver.</title>
+    <title>Invaders Inc. - Ushikun ver. (Improved)</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -20,7 +20,8 @@
             --primary-neon: #00f6ff;
             --secondary-neon: #ff00ff;
             --accent-neon: #39ff14;
-            --text-color: #e0e0e0;
+            --text-color: #f0f0f0; /* 全体的にテキストの明るさを少し上げ、コントラストを改善 */
+            --text-muted-color: #c0c0c0; /* やや暗いテキストの透明度を調整 */
         }
 
         body {
@@ -36,12 +37,17 @@
 
         .section-title { font-size: 2.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 
+        /* アクセシビリティ改善: テキストの可読性を確保 */
+        .readable-text {
+            color: var(--text-muted-color);
+        }
+
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); }
         ::-webkit-scrollbar-thumb { background: var(--primary-neon); border-radius: 4px; box-shadow: 0 0 5px var(--primary-neon); }
         ::-webkit-scrollbar-thumb:hover { background: var(--secondary-neon); }
         
-        .card { background: rgba(20, 20, 40, 0.5); border: 1px solid rgba(0, 246, 255, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s ease; }
+        .card { background: rgba(20, 20, 40, 0.6); border: 1px solid rgba(0, 246, 255, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s ease; }
         .card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 0 20px rgba(0, 246, 255, 0.3); border-color: var(--primary-neon); }
 
         .social-btn { display: flex; align-items: center; justify-content: center; padding: 0.75rem; border-radius: 0.5rem; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; transform-origin: center; border: 2px solid transparent; text-decoration: none; }
@@ -81,7 +87,7 @@
                 <div class="card p-8 rounded-lg animate-item w-full max-w-md">
                     <img src="https://pbs.twimg.com/profile_images/1759177303157051392/SZAe49Vg_400x400.jpg" alt="うしくんアイコン" class="rounded-full w-32 h-32 mx-auto mb-4 border-4 border-primary-neon shadow-lg shadow-primary-neon/50">
                     <h3 class="text-3xl font-bold neon-text-primary">CFO: うしくん 🐮</h3>
-                    <p class="text-lg opacity-80 mb-6">メタバース不動産王</p>
+                    <p class="text-lg readable-text mb-6">公認会計士・税理士</p>
                     <div class="space-y-4">
                         <a href="https://x.com/Ushikun_desu" target="_blank" class="social-btn btn-x"><span>🐦</span><span>X (旧Twitter)</span></a>
                         <a href="https://www.facebook.com/hoshinoushikun/" target="_blank" class="social-btn btn-messenger"><span>💬</span><span>Messenger</span></a>
@@ -123,7 +129,7 @@
                     <div class="card p-6 rounded-lg text-center animate-item">
                         <div class="text-5xl mb-4 neon-text-secondary">👾</div>
                         <h3 class="text-2xl font-bold">ソーシャルノバ</h3>
-                        <p class="mt-2 opacity-80">メタバースイベント & コミュニティ事業。人と祭りの中心地。</p>
+                        <p class="mt-2 readable-text">メタバースイベント & コミュニティ事業。人と祭りの中心地。</p>
                         <div class="text-left mt-4 p-4 bg-black/30 rounded-lg">
                             <h4 class="font-bold text-accent-neon">For Business Partners:</h4>
                             <p class="text-sm mt-1">ファンコミュニティの構築、話題性のあるプロモーションイベント、オンラインでの新たな顧客接点の創出をサポートします。</p>
@@ -132,7 +138,7 @@
                     <div class="card p-6 rounded-lg text-center animate-item">
                         <div class="text-5xl mb-4 neon-text-secondary">🤖</div>
                         <h3 class="text-2xl font-bold">デジタルキャスティング</h3>
-                        <p class="mt-2 opacity-80">バーチャルビーイング事業。未来のタレントを創造・派遣する。</p>
+                        <p class="mt-2 readable-text">バーチャルビーイング事業。未来のタレントを創造・派遣する。</p>
                         <div class="text-left mt-4 p-4 bg-black/30 rounded-lg">
                             <h4 class="font-bold text-accent-neon">For Business Partners:</h4>
                             <p class="text-sm mt-1">貴社の顔となるオリジナルバーチャルタレントのプロデュースや、イベントを盛り上げるメタバース人材のキャスティングを行います。</p>
@@ -141,7 +147,7 @@
                     <div class="card p-6 rounded-lg text-center animate-item">
                         <div class="text-5xl mb-4 neon-text-secondary">🎬</div>
                         <h3 class="text-2xl font-bold">インベーダーズスタジオ</h3>
-                        <p class="mt-2 opacity-80">物語、ゲーム、体験型イベントを創る。</p>
+                        <p class="mt-2 readable-text">物語、ゲーム、体験型イベントを創る。</p>
                         <div class="text-left mt-4 p-4 bg-black/30 rounded-lg">
                             <h4 class="font-bold text-accent-neon">For Business Partners:</h4>
                             <p class="text-sm mt-1">記憶に残るブランド体験を提供し、貴社のメッセージを世界に届けます。</p>
@@ -156,19 +162,19 @@
                 <p class="mt-4 mb-12 text-center text-xl animate-item">侵略の証拠</p>
                 <div class="max-w-4xl mx-auto space-y-8">
                     <div class="card flex flex-col md:flex-row items-center p-4 rounded-lg animate-item">
-                        <!-- 【要差替】テレビ朝日案件の画像URLをここに挿入 -->
-                        <img src="https://placehold.co/150x100/0d0d1a/00f6ff?text=TV_ASAHI_LOGO" alt="テレビ朝日ロゴ" class="w-32 h-auto rounded-lg mb-4 md:mb-0 md:mr-6">
+                        <!-- 【パフォーマンス改善案】本番環境では、この画像を圧縮し、WebP形式で配信することを推奨します。 -->
+                        <img src="https://placehold.co/200x150/0d0d1a/00f6ff?text=TV_ASAHI_LOGO" alt="テレビ朝日ロゴ" class="w-40 h-auto rounded-lg mb-4 md:mb-0 md:mr-6">
                         <div class="w-full">
                             <h3 class="text-xl font-bold">テレビ朝日『メタメタ大作戦』『しくじり先生』</h3>
-                            <p class="opacity-80">運営サポート & コミュニケーション活性化施策を担当</p>
+                            <p class="readable-text">運営サポート & コミュニケーション活性化施策を担当</p>
                         </div>
                     </div>
                     <div class="card flex flex-col md:flex-row items-center p-4 rounded-lg animate-item">
-                        <!-- 【要差替】メタコミの画像URLをここに挿入 -->
-                        <img src="https://placehold.co/150x100/0d0d1a/ff00ff?text=META_COMI_LOGO" alt="メタコミロゴ" class="w-32 h-auto rounded-lg mb-4 md:mb-0 md:mr-6">
+                        <!-- 【パフォーマンス改善案】本番環境では、この画像を圧縮し、WebP形式で配信することを推奨します。 -->
+                        <img src="https://placehold.co/200x150/0d0d1a/ff00ff?text=META_COMI_LOGO" alt="メタコミロゴ" class="w-40 h-auto rounded-lg mb-4 md:mb-0 md:mr-6">
                         <div class="w-full">
                             <h3 class="text-xl font-bold">自社主催 展示即売会『メタコミ』</h3>
-                            <p class="opacity-80">延べ4,035人以上を動員。新たな文化を創出。</p>
+                            <p class="readable-text">延べ4,035人以上を動員。新たな文化を創出。</p>
                         </div>
                     </div>
                 </div>
@@ -182,7 +188,7 @@
     </div>
 
     <div id="chatbot-icon" class="fixed bottom-5 right-5 w-20 h-20 flex items-center justify-center cursor-pointer z-40 hover:scale-110 transition-transform group">
-        <div class="absolute text-6xl text-white/80 opacity-80 group-hover:opacity-100 transition-opacity">💭</div>
+        <div class="absolute text-6xl opacity-80 group-hover:opacity-100 transition-opacity" style="color: var(--text-color);">💭</div>
         <div class="absolute text-3xl group-hover:animate-bounce">👽</div>
     </div>
     
@@ -193,7 +199,7 @@
                 <button id="close-chatbot" class="text-2xl text-white/50 hover:text-white transition-colors">×</button>
             </div>
             <div id="chat-window" class="flex-grow p-4 overflow-y-auto space-y-4">
-                <div class="chat-message bot"><p class="bg-primary-neon/10 p-3 rounded-lg">CFOのうしくんです。Invaders Inc.の事業計画や資産価値について、ご質問はありますか？</p></div>
+                <div class="chat-message bot"><p class="bg-primary-neon/10 p-3 rounded-lg">CFOのうしくんです。Invaders Inc.の事業計画や財務について、ご質問はありますか？</p></div>
             </div>
             <div class="p-4 border-t border-white/10">
                 <form id="chat-form" class="flex gap-2">
@@ -337,8 +343,8 @@
                     const botResponse = await askGemini(userMessage);
                     updateBotMessage(botResponse);
                 } catch (error) {
-                    console.error("Error with Gemini API:", error);
-                    updateBotMessage("エラーが発生しました。接続を確認するか、APIキーが正しいか確認してください。");
+                    console.error("Chatbot Error:", error);
+                    updateBotMessage(error.message);
                 }
             });
 
@@ -361,66 +367,65 @@
                 }
             }
             
-            const CONTEXT_DATA = `
-                あなたは「株式会社インベーダーズ」のCFO、うしくんとして振る舞うAIアシスタントです。
-                以下の情報を元に、うしくん本人になりきって、彼の持つ雰囲気を再現し、丁寧かつビジネスライクな回答を生成してください。
-
-                ## 会社概要
-                - 会社名: 株式会社インベーダーズ (Invaders Inc.)
-                - 現在の運営法人: ネクストプラン合同会社 (NextPlan LLC.)
-                - MISSION: 「あなたとともに未来の居場所を作る」
-                - 思想: 「ヒトと、祭りと、居場所こそが、メタバースだ！」
-                - 経営陣: CEO カゲキン (狂気のマッドバーチャリスト), CFO うしくん (メタバース不動産王), COO りこち (Vibe Coding担当)
-
-                ## うしくん プロフィール
-                - 肩書: 株式会社インベーダーズ CFO, メタバース不動産王
-                - 自己紹介: CFOのうしくんです。メタバースにおける経済圏の確立と、事業の持続的な成長を使命としています。趣味はデジタルアセットの価値評価です。
-
-                ## 事業内容
-                1. ソーシャルノバ: メタバースイベント & コミュニティ事業。人と祭りの中心地。
-                2. デジタルキャスティング: バーチャルビーイング事業。未来のタレントを創造・派遣する。
-                3. インベーダーズスタジオ: 物語、ゲーム、体験型イベントを創るクリエイティブ部門。
-
-                ## 実績
-                - テレビ朝日『メタメタ大作戦』などとの協業多数。
-                - 自社主催のメタバース展示即売会『メタコミ』で延べ4,000人以上を動員。
-
-                ## 回答時のルール
-                - 一人称は「私」です。
-                - 常に丁寧な敬語（ですます調）を使用してください。
-                - 冷静で分析的な視点から回答し、事業の将来性や価値について言及することを好みます。
-                - 「ネクストプラン合同会社」との関係を聞かれたら、「ネクストプランは我々の現在の法人格です。インベーダーズというビジョンを実現するための、重要な事業基盤と位置づけております」といった趣旨で、落ち着いて回答してください。
-            `;
-
+            // --- セキュリティ改善: APIキーをフロントエンドから削除 ---
             async function askGemini(prompt) {
-                // 【重要】ご自身のAPIキーをここに設定してください
-                const apiKey = ""; 
-                
-                if (!apiKey) {
-                    return "APIキーが設定されておりません。お手数ですが、管理者にご確認ください。";
+                // 【重要】このチャットボットは、セキュリティ強化のためバックエンド経由でのAPI呼び出しを前提としています。
+                // 以下のURLを、ご自身で用意したサーバーレス関数などのエンドポイントに書き換えてください。
+                const YOUR_BACKEND_ENDPOINT = 'https://example.com/api/chat'; // ← ここを書き換える
+
+                // バックエンドが未実装の場合のデモ用メッセージ
+                if (YOUR_BACKEND_ENDPOINT === 'https://example.com/api/chat') {
+                    throw new Error("【設定が必要です】チャット機能は現在オフラインです。管理者がバックエンドのエンドポイントを設定する必要があります。");
                 }
-
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
-                const fullPrompt = `${CONTEXT_DATA}\n\n上記の情報を元に、うしくんの口調でユーザーの以下の質問に答えてください。\n\n質問: "${prompt}"\n\n回答:`;
                 
-                const payload = { 
-                    contents: [{ role: "user", parts: [{ text: fullPrompt }] }],
-                    generationConfig: {
-                        temperature: 0.5,
-                        topP: 1.0,
-                        maxOutputTokens: 500,
-                    }
-                };
+                const CONTEXT_DATA = `
+                    あなたは「株式会社インベーダーズ」のCFO、うしくんとして振る舞うAIアシスタントです。
+                    以下の情報を元に、うしくん本人になりきって、彼の持つ雰囲気を再現し、丁寧かつビジネスライクな回答を生成してください。
 
-                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                if (!response.ok) throw new Error(`API request failed with status ${response.status}`);
+                    ## 会社概要
+                    - 会社名: 株式会社インベーダーズ (Invaders Inc.)
+                    - 現在の運営法人: ネクストプラン合同会社 (NextPlan LLC.)
+                    - MISSION: 「あなたとともに未来の居場所を作る」
+                    - 思想: 「ヒトと、祭りと、居場所こそが、メタバースだ！」
+                    - 経営陣: CEO カゲキン (狂気のマッドバーチャリスト), CFO うしくん (公認会計士・税理士), COO りこち (Vibe Coding担当)
+
+                    ## うしくん プロフィール
+                    - 肩書: 株式会社インベーダーズ CFO, 公認会計士・税理士
+                    - 自己紹介: CFOのうしくんです。公認会計士・税理士として、事業の持続的な成長と健全な財務基盤の確立を使命としています。
+
+                    ## 事業内容
+                    1. ソーシャルノバ: メタバースイベント & コミュニティ事業。人と祭りの中心地。
+                    2. デジタルキャスティング: バーチャルビーイング事業。未来のタレントを創造・派遣する。
+                    3. インベーダーズスタジオ: 物語、ゲーム、体験型イベントを創るクリエイティブ部門。
+
+                    ## 実績
+                    - テレビ朝日『メタメタ大作戦』などとの協業多数。
+                    - 自社主催のメタバース展示即売会『メタコミ』で延べ4,000人以上を動員。
+
+                    ## 回答時のルール
+                    - 一人称は「私」です。
+                    - 常に丁寧な敬語（ですます調）を使用してください。
+                    - 冷静で分析的な視点から回答し、事業の将来性や価値について言及することを好みます。
+                    - 「ネクストプラン合同会社」との関係を聞かれたら、「ネクストプランは我々の現在の法人格です。インベーダーズというビジョンを実現するための、重要な事業基盤と位置づけております」といった趣旨で、落ち着いて回答してください。
+                `;
+                const fullPrompt = `${CONTEXT_DATA}\n\n上記の情報を元に、うしくんの口調でユーザーの以下の質問に答えてください。\n\n質問: "${prompt}"\n\n回答:`;
+
+                const response = await fetch(YOUR_BACKEND_ENDPOINT, { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify({ prompt: fullPrompt }) 
+                });
+
+                if (!response.ok) {
+                    throw new Error("サーバーとの通信に失敗しました。しばらくしてから再度お試しください。");
+                }
+                
                 const result = await response.json();
 
-                if (result.candidates && result.candidates[0]?.content?.parts?.[0]?.text) {
-                    return result.candidates[0].content.parts[0].text;
+                if (result.text) {
+                    return result.text;
                 } else {
-                    console.log("Unexpected API response structure:", result);
-                    return "ご質問の意図を正確に把握できませんでした。恐れ入りますが、別の表現でお尋ねいただけますでしょうか。";
+                    throw new Error("サーバーから予期しない形式の応答がありました。");
                 }
             }
         }
