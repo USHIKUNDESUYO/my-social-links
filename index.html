@@ -1,439 +1,466 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invaders Inc. - Ushikun ver. (Improved)</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-    <style>
-        :root {
-            --bg-color: #0d0d1a;
-            --primary-neon: #00f6ff;
-            --secondary-neon: #ff00ff;
-            --accent-neon: #39ff14;
-            --text-color: #f0f0f0; /* 全体的にテキストの明るさを少し上げ、コントラストを改善 */
-            --text-muted-color: #c0c0c0; /* やや暗いテキストの透明度を調整 */
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Rajdhani', 'Noto Sans JP', sans-serif;
-            overflow-x: hidden;
-        }
-
-        .neon-text-primary { color: var(--primary-neon); text-shadow: 0 0 5px var(--primary-neon), 0 0 10px var(--primary-neon), 0 0 20px var(--primary-neon); }
-        .neon-text-secondary { color: var(--secondary-neon); text-shadow: 0 0 5px var(--secondary-neon), 0 0 10px var(--secondary-neon), 0 0 20px var(--secondary-neon); }
-        .neon-text-accent { color: var(--accent-neon); text-shadow: 0 0 5px var(--accent-neon), 0 0 10px var(--accent-neon), 0 0 15px var(--accent-neon); }
-
-        .section-title { font-size: 2.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-
-        /* アクセシビリティ改善: テキストの可読性を確保 */
-        .readable-text {
-            color: var(--text-muted-color);
-        }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); }
-        ::-webkit-scrollbar-thumb { background: var(--primary-neon); border-radius: 4px; box-shadow: 0 0 5px var(--primary-neon); }
-        ::-webkit-scrollbar-thumb:hover { background: var(--secondary-neon); }
-        
-        .card { background: rgba(20, 20, 40, 0.6); border: 1px solid rgba(0, 246, 255, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s ease; }
-        .card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 0 20px rgba(0, 246, 255, 0.3); border-color: var(--primary-neon); }
-
-        .social-btn { display: flex; align-items: center; justify-content: center; padding: 0.75rem; border-radius: 0.5rem; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease; transform-origin: center; border: 2px solid transparent; text-decoration: none; }
-        .social-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px currentColor; }
-        .social-btn span:first-child { margin-right: 0.75rem; flex-shrink: 0; }
-        .social-btn span:last-child { flex-shrink: 0; }
-        .btn-x { color: #fff; background-color: #1DA1F2; border-color: #1DA1F2; }
-        .btn-messenger { color: #fff; background-color: #0084ff; border-color: #0084ff; }
-        .btn-instagram { color: #fff; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border: none; }
-        .btn-line { color: #fff; background-color: #06C755; border-color: #06C755; }
-        
-        #animation-layer { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 10; overflow: hidden; }
-        .anim-char { position: absolute; font-size: 4rem; opacity: 0; will-change: transform, opacity; }
-    </style>
-</head>
-<body class="antialiased">
-
-    <div id="animation-layer"></div>
-
-    <div id="main-content" class="opacity-0">
-        <header class="w-full p-4 fixed top-0 left-0 z-40 bg-gradient-to-b from-black/80 to-transparent">
-             <div class="container mx-auto flex justify-between items-center">
-                 <h1 class="text-2xl font-bold neon-text-primary uppercase">Invaders Inc.</h1>
-                 <p class="text-lg neon-text-primary">Ushikun ver.</p>
-             </div>
-        </header>
-
-        <main class="container mx-auto px-4 pt-24 relative z-20">
-
-            <!-- SECTION 00: HERO / FIRST CONTACT -->
-            <section id="hero" class="min-h-screen flex flex-col items-center justify-center text-center">
-                <div class="animate-item">
-                    <h2 class="text-4xl md:text-5xl font-bold neon-text-primary">まずはファーストコンタクト！🚀</h2>
-                    <p class="mt-4 mb-8 text-xl md:text-2xl neon-text-accent">質問できるVibe Coding Web名刺</p>
-                </div>
-                
-                <div class="card p-8 rounded-lg animate-item w-full max-w-md">
-                    <img src="https://pbs.twimg.com/profile_images/1759177303157051392/SZAe49Vg_400x400.jpg" alt="うしくんアイコン" class="rounded-full w-32 h-32 mx-auto mb-4 border-4 border-primary-neon shadow-lg shadow-primary-neon/50">
-                    <h3 class="text-3xl font-bold neon-text-primary">CFO: うしくん 🐮</h3>
-                    <p class="text-lg readable-text mb-6">公認会計士・税理士</p>
-                    <div class="space-y-4">
-                        <a href="https://x.com/Ushikun_desu" target="_blank" class="social-btn btn-x"><span>🐦</span><span>X (旧Twitter)</span></a>
-                        <a href="https://www.facebook.com/hoshinoushikun/" target="_blank" class="social-btn btn-messenger"><span>💬</span><span>Messenger</span></a>
-                        <a href="https://www.instagram.com/ushikun_vtuber_metaverse" target="_blank" class="social-btn btn-instagram"><span>📸</span><span>Instagram</span></a>
-                        <a href="https://line.me/ti/p/x6kAj6hQTz" target="_blank" class="social-btn btn-line"><span>✅</span><span>LINE</span></a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECTION 01: ABOUT -->
-            <section id="about" class="py-20 text-center">
-                <h2 class="section-title neon-text-primary animate-item">ABOUT INVADERS INC.</h2>
-                <p class="mt-4 mb-8 text-xl animate-item">我々は「面白さ」で世界を作り変える、宇宙人たちの会社だ。</p>
-                <div class="max-w-3xl mx-auto animate-item">
-                    <p class="text-2xl font-bold neon-text-secondary">MISSION: 「あなたとともに未来の居場所を作る」</p>
-                    <p class="mt-4 text-lg">プラットフォームがメタバースなんじゃない。<br>ヒトと、祭りと、居場所こそが、メタバースだ！</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl mx-auto mt-12">
-                    <div id="kagekin-card" class="card p-6 rounded-lg animate-item text-center">
-                        <img src="https://pbs.twimg.com/profile_images/1905651963158835200/M06q-esr_400x400.jpg" alt="カゲキンアイコン" class="rounded-full w-20 h-20 mx-auto mb-4 border-2 border-secondary-neon">
-                        <h3 class="text-xl font-bold neon-text-secondary">CEO: カゲキン 🐱</h3>
-                    </div>
-                    <div id="ushikun-card" class="card p-6 rounded-lg animate-item text-center">
-                        <img src="https://pbs.twimg.com/profile_images/1759177303157051392/SZAe49Vg_400x400.jpg" alt="うしくんアイコン" class="rounded-full w-20 h-20 mx-auto mb-4 border-2 border-primary-neon">
-                        <h3 class="text-xl font-bold neon-text-primary">CFO: うしくん 🐮</h3>
-                    </div>
-                    <div id="rikochi-card" class="card p-6 rounded-lg animate-item text-center">
-                        <img src="https://pbs.twimg.com/profile_images/1656945540184313858/68mAuetW_400x400.jpg" alt="りこちアイコン" class="rounded-full w-20 h-20 mx-auto mb-4 border-2 border-accent-neon">
-                        <h3 class="text-xl font-bold neon-text-accent">COO: りこち ☕️</h3>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECTION 02: SERVICES -->
-            <section id="services" class="py-20">
-                <h2 class="section-title text-center neon-text-primary animate-item">OUR SERVICES</h2>
-                <p class="mt-4 mb-12 text-center text-xl animate-item">我々が提供する3つの侵略事業</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="card p-6 rounded-lg text-center animate-item">
-                        <div class="text-5xl mb-4 neon-text-secondary">👾</div>
-                        <h3 class="text-2xl font-bold">ソーシャルノバ</h3>
-                        <p class="mt-2 readable-text">メタバースイベント & コミュニティ事業。人と祭りの中心地。</p>
-                        <div class="text-left mt-4 p-4 bg-black/30 rounded-lg">
-                            <h4 class="font-bold text-accent-neon">For Business Partners:</h4>
-                            <p class="text-sm mt-1">ファンコミュニティの構築、話題性のあるプロモーションイベント、オンラインでの新たな顧客接点の創出をサポートします。</p>
-                        </div>
-                    </div>
-                    <div class="card p-6 rounded-lg text-center animate-item">
-                        <div class="text-5xl mb-4 neon-text-secondary">🤖</div>
-                        <h3 class="text-2xl font-bold">デジタルキャスティング</h3>
-                        <p class="mt-2 readable-text">バーチャルビーイング事業。未来のタレントを創造・派遣する。</p>
-                        <div class="text-left mt-4 p-4 bg-black/30 rounded-lg">
-                            <h4 class="font-bold text-accent-neon">For Business Partners:</h4>
-                            <p class="text-sm mt-1">貴社の顔となるオリジナルバーチャルタレントのプロデュースや、イベントを盛り上げるメタバース人材のキャスティングを行います。</p>
-                        </div>
-                    </div>
-                    <div class="card p-6 rounded-lg text-center animate-item">
-                        <div class="text-5xl mb-4 neon-text-secondary">🎬</div>
-                        <h3 class="text-2xl font-bold">インベーダーズスタジオ</h3>
-                        <p class="mt-2 readable-text">物語、ゲーム、体験型イベントを創る。</p>
-                        <div class="text-left mt-4 p-4 bg-black/30 rounded-lg">
-                            <h4 class="font-bold text-accent-neon">For Business Partners:</h4>
-                            <p class="text-sm mt-1">記憶に残るブランド体験を提供し、貴社のメッセージを世界に届けます。</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECTION 03: EVIDENCE -->
-            <section id="evidence" class="py-20">
-                <h2 class="section-title text-center neon-text-primary animate-item">EVIDENCE</h2>
-                <p class="mt-4 mb-12 text-center text-xl animate-item">侵略の証拠</p>
-                <div class="max-w-4xl mx-auto space-y-8">
-                    <div class="card flex flex-col md:flex-row items-center p-4 rounded-lg animate-item">
-                        <!-- 【パフォーマンス改善案】本番環境では、この画像を圧縮し、WebP形式で配信することを推奨します。 -->
-                        <img src="https://placehold.co/200x150/0d0d1a/00f6ff?text=TV_ASAHI_LOGO" alt="テレビ朝日ロゴ" class="w-40 h-auto rounded-lg mb-4 md:mb-0 md:mr-6">
-                        <div class="w-full">
-                            <h3 class="text-xl font-bold">テレビ朝日『メタメタ大作戦』『しくじり先生』</h3>
-                            <p class="readable-text">運営サポート & コミュニケーション活性化施策を担当</p>
-                        </div>
-                    </div>
-                    <div class="card flex flex-col md:flex-row items-center p-4 rounded-lg animate-item">
-                        <!-- 【パフォーマンス改善案】本番環境では、この画像を圧縮し、WebP形式で配信することを推奨します。 -->
-                        <img src="https://placehold.co/200x150/0d0d1a/ff00ff?text=META_COMI_LOGO" alt="メタコミロゴ" class="w-40 h-auto rounded-lg mb-4 md:mb-0 md:mr-6">
-                        <div class="w-full">
-                            <h3 class="text-xl font-bold">自社主催 展示即売会『メタコミ』</h3>
-                            <p class="readable-text">延べ4,035人以上を動員。新たな文化を創出。</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer class="text-center py-8 relative z-20">
-             <p class="font-bold">運営会社: ネクストプラン合同会社 (NextPlan LLC.)</p>
-             <p class="opacity-70 mt-2">© 2025 Invaders Inc. All Rights Reserved.</p>
-        </footer>
-    </div>
-
-    <div id="chatbot-icon" class="fixed bottom-5 right-5 w-20 h-20 flex items-center justify-center cursor-pointer z-40 hover:scale-110 transition-transform group">
-        <div class="absolute text-6xl opacity-80 group-hover:opacity-100 transition-opacity" style="color: var(--text-color);">💭</div>
-        <div class="absolute text-3xl group-hover:animate-bounce">👽</div>
-    </div>
-    
-    <div id="chatbot-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4">
-        <div class="card w-full max-w-2xl h-[80vh] max-h-[700px] rounded-lg flex flex-col">
-            <div class="flex justify-between items-center p-4 border-b border-white/10">
-                <h3 class="text-xl font-bold neon-text-primary">ASK 'GEMINI'</h3>
-                <button id="close-chatbot" class="text-2xl text-white/50 hover:text-white transition-colors">×</button>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101319" />
+    <title>うしくん | SNS・プロフィール・お問い合わせ</title>
+    <meta
+      name="description"
+      content="うしくんのWeb名刺。公認会計士・税理士、株式会社インベーダーズ取締役CFO。SNS、会社の事業・実績、ご相談先をまとめました。"
+    />
+    <link
+      rel="canonical"
+      href="https://ushikundesuyo.github.io/my-social-links/"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta
+      property="og:title"
+      content="うしくん | SNS・プロフィール・お問い合わせ"
+    />
+    <meta
+      property="og:description"
+      content="会計とテクノロジーで、未来の居場所を。うしくんのSNSとご相談先はこちら。"
+    />
+    <meta
+      property="og:url"
+      content="https://ushikundesuyo.github.io/my-social-links/"
+    />
+    <meta
+      property="og:image"
+      content="https://ushikundesuyo.github.io/my-social-links/assets/ushikun.jpg"
+    />
+    <meta property="og:image:alt" content="うしくんのプロフィール写真" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+    <svg
+      class="svg-library"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <symbol id="icon-arrow" viewBox="0 0 24 24">
+        <path d="M6 18 18 6M6 6h12v12" />
+      </symbol>
+      <symbol id="icon-x" viewBox="0 0 24 24">
+        <path d="m4 3 12 18h4L8 3H4Zm0 18 6-7m4-4 6-7" />
+      </symbol>
+      <symbol id="icon-facebook" viewBox="0 0 24 24">
+        <path
+          d="M14 22V12h4l1-4h-5V6c0-2 1-3 3-3h2V0h-3c-4 0-6 2-6 6v2H6v4h4v10"
+        />
+      </symbol>
+      <symbol id="icon-instagram" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <path d="M17.5 6.5h.01" />
+      </symbol>
+      <symbol id="icon-chat" viewBox="0 0 24 24">
+        <path
+          d="M21 11c0 5-4 8-9 8H9l-5 3 1-6a8 8 0 0 1-2-5c0-5 4-8 9-8s9 3 9 8Z"
+        />
+        <path d="M8 10h8m-8 4h5" />
+      </symbol>
+      <symbol id="icon-link" viewBox="0 0 24 24">
+        <path
+          d="m10 14 4-4m-6 7-1 1a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0m0 10a4 4 0 0 0 6 0l5-5a4 4 0 0 0-6-6l-1 1"
+        />
+      </symbol>
+    </svg>
+    <header class="site-header wrap">
+      <a href="#" class="wordmark" aria-label="うしくんのWeb名刺 トップ"
+        ><span class="brand-mark" aria-hidden="true">✳</span> INVADERS<span
+          class="wordmark-inc"
+        >
+          INC.</span
+        ></a
+      >
+      <nav aria-label="ページ内メニュー">
+        <a href="#about">ABOUT</a><a href="#works">WORKS</a
+        ><a href="#contact">CONTACT <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+    <main id="main" class="wrap">
+      <section class="hero" aria-labelledby="profile-title">
+        <div class="hero-intro">
+          <p class="eyebrow">
+            <span class="status-dot" aria-hidden="true"></span> HELLO, EARTH. /
+            はじめまして
+          </p>
+          <h1 id="profile-title">
+            会計とテクノロジーで、<br /><span>未来の居場所を。</span>
+          </h1>
+          <p class="hero-description">
+            人とつながり、面白いことを一緒につくる。<br />うしくんの活動と、ご連絡先をまとめました。
+          </p>
+          <div class="identity">
+            <div class="portrait">
+              <img
+                src="assets/ushikun.jpg"
+                alt="うしくんのプロフィール写真"
+                width="1920"
+                height="1280"
+                fetchpriority="high"
+                decoding="async"
+              />
             </div>
-            <div id="chat-window" class="flex-grow p-4 overflow-y-auto space-y-4">
-                <div class="chat-message bot"><p class="bg-primary-neon/10 p-3 rounded-lg">CFOのうしくんです。Invaders Inc.の事業計画や財務について、ご質問はありますか？</p></div>
+            <div>
+              <p class="identity-label">USHIKUN</p>
+              <p class="identity-name">うしくん</p>
+              <p class="identity-role">
+                公認会計士・税理士<br />株式会社インベーダーズ 取締役 CFO
+              </p>
             </div>
-            <div class="p-4 border-t border-white/10">
-                <form id="chat-form" class="flex gap-2">
-                    <input type="text" id="chat-input" placeholder="質問を入力..." class="flex-grow bg-black/50 border border-white/20 rounded-lg px-4 py-2 focus:outline-none focus:border-primary-neon transition-colors text-white">
-                    <button type="submit" class="bg-primary-neon text-black font-bold px-6 py-2 rounded-lg hover:bg-secondary-neon transition-colors">送信</button>
-                </form>
-            </div>
+          </div>
+          <div class="tags" aria-label="活動領域">
+            <span>会計・事業支援</span><span>生成AI</span
+            ><span>コミュニティ</span>
+          </div>
         </div>
-    </div>
-
-    <script type="module">
-        // --- GSAP Animations ---
-        function setupScrollAnimations() {
-            gsap.registerPlugin(ScrollTrigger);
-            gsap.utils.toArray('.animate-item').forEach(item => {
-                gsap.fromTo(item, 
-                    { opacity: 0, y: 50 }, 
-                    { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-                      scrollTrigger: { trigger: item, start: 'top 85%', toggleActions: 'play none none none' }
-                    }
-                );
-            });
-        }
-
-        // --- Page Load ---
-        function handlePageLoad() {
-            const mainContent = document.getElementById('main-content');
-            window.addEventListener('load', () => {
-                gsap.to(mainContent, { opacity: 1, duration: 0.5 });
-                setupScrollAnimations();
-                startZanyAnimations();
-            });
-        }
-
-        // --- Zany Background Animations ---
-        function startZanyAnimations() {
-            const layer = document.getElementById('animation-layer');
-            const ushikunCard = document.getElementById('ushikun-card');
-            const rikochiCard = document.getElementById('rikochi-card');
-            const kagekinCard = document.getElementById('kagekin-card');
-
-            function createAnimChar(content, parent, classes = '') {
-                const el = document.createElement('div');
-                el.className = 'anim-char ' + classes;
-                el.innerHTML = content;
-                parent.appendChild(el);
-                return el;
-            }
-
-            function randomUfoFlybyAnimation() {
-                const ufo = createAnimChar('🛸', layer, 'opacity-70');
-                const startY = Math.random() * window.innerHeight * 0.5;
-                const duration = 10 + Math.random() * 10;
-                const scale = 0.6 + Math.random() * 0.7;
-
-                gsap.fromTo(ufo, 
-                    { y: startY, x: -100, scale: scale, opacity: 1 },
-                    { 
-                        x: window.innerWidth + 100, 
-                        duration: duration, 
-                        ease: 'none',
-                        onComplete: () => ufo.remove()
-                    }
-                );
-            }
-
-            function ufoAbductionAnimation() {
-                if (!ushikunCard) return;
-                const ufo = createAnimChar('🛸', layer);
-                const beam = createAnimChar('', layer, 'w-1 h-0 bg-cyan-300/50 rounded-full');
-                const rect = ushikunCard.getBoundingClientRect();
-                const targetX = rect.left + rect.width / 2;
-                const targetY = rect.top;
-                const tl = gsap.timeline({ onComplete: () => { ufo.remove(); beam.remove(); } });
-                tl.from(ufo, { x: -100, y: targetY - 150, opacity: 1, duration: 0 })
-                  .to(ufo, { x: targetX, duration: 3, ease: 'power1.inOut' })
-                  .set(beam, { x: targetX, y: targetY - 120, opacity: 0.7 })
-                  .to(beam, { height: 120, duration: 0.5 })
-                  .to(ushikunCard, { y: -20, opacity: 0, scale: 0.8, duration: 0.5, delay: 0.2 }, "<")
-                  .to(beam, { opacity: 0, duration: 0.3 })
-                  .to(ufo, { y: -200, x: window.innerWidth + 100, duration: 3, ease: 'power1.in' })
-                  .set(ushikunCard, { y: 0, opacity: 1, scale: 1 });
-            }
-            
-            function rikochiAnimation() {
-                if (!rikochiCard) return;
-                const rect = rikochiCard.getBoundingClientRect();
-                const codeChars = ['<', '>', '/', '{', '}', ';', '()', '=>', 'const', 'let'];
-                for (let i = 0; i < 15; i++) {
-                    const char = createAnimChar(codeChars[(Math.random() * codeChars.length)|0], layer, 'text-accent-neon text-sm md:text-lg');
-                    gsap.fromTo(char, 
-                        { x: rect.left + Math.random() * rect.width, y: rect.top + Math.random() * rect.height, opacity: 1, scale: 0.5 + Math.random() * 0.7 },
-                        { y: '-=150', opacity: 0, scale: 1, duration: 2 + Math.random() * 2, delay: Math.random() * 2, onComplete: () => char.remove() }
-                    );
-                }
-            }
-
-            function kagekinAnimation() {
-                 if (!kagekinCard) return;
-                 const rect = kagekinCard.getBoundingClientRect();
-                 const cat = createAnimChar('🐱', layer, 'text-secondary-neon text-5xl');
-                 const tube = createAnimChar('🧪', layer, 'text-accent-neon text-3xl');
-                 const smoke = createAnimChar('💨', layer, 'text-gray-400 text-4xl');
-                 const tl = gsap.timeline({ onComplete: () => { cat.remove(); tube.remove(); smoke.remove(); }});
-                 tl.set([cat, tube, smoke], {x: rect.left + rect.width/2, y: rect.top + rect.height/2, opacity: 1})
-                   .to(tube, { x: '+=20', rotation: 30, duration: 0.2, repeat: 5, yoyo: true, ease: 'power1.inOut' })
-                   .to(smoke, { scale: 3, opacity: 0, duration: 0.8 }, '-=0.5')
-                   .to([cat, tube], { opacity: 0, duration: 0.5 }, '+=0.2');
-            }
-            
-            setInterval(randomUfoFlybyAnimation, 7000 + Math.random() * 6000);
-            setInterval(ufoAbductionAnimation, 18000 + Math.random() * 7000);
-            setInterval(rikochiAnimation, 9000 + Math.random() * 4000);
-            setInterval(kagekinAnimation, 12000 + Math.random() * 5000);
-            setTimeout(ufoAbductionAnimation, 5000);
-        }
-
-        // --- Chatbot Logic ---
-        function setupChatbot() {
-            const chatbotIcon = document.getElementById('chatbot-icon');
-            const chatbotModal = document.getElementById('chatbot-modal');
-            const closeChatbot = document.getElementById('close-chatbot');
-            const chatForm = document.getElementById('chat-form');
-            const chatInput = document.getElementById('chat-input');
-            const chatWindow = document.getElementById('chat-window');
-
-            chatbotIcon.addEventListener('click', () => chatbotModal.classList.remove('hidden'));
-            closeChatbot.addEventListener('click', () => chatbotModal.classList.add('hidden'));
-            chatbotModal.addEventListener('click', (e) => { if (e.target === chatbotModal) chatbotModal.classList.add('hidden'); });
-
-            chatForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const userMessage = chatInput.value.trim();
-                if (!userMessage) return;
-                appendMessage(userMessage, 'user');
-                chatInput.value = '';
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-                appendMessage('分析中...', 'bot', true);
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-                try {
-                    const botResponse = await askGemini(userMessage);
-                    updateBotMessage(botResponse);
-                } catch (error) {
-                    console.error("Chatbot Error:", error);
-                    updateBotMessage(error.message);
-                }
-            });
-
-            function appendMessage(text, sender, isTyping = false) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `chat-message flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
-                if (isTyping) messageDiv.id = 'typing-indicator';
-                const p = document.createElement('p');
-                p.className = `max-w-xs md:max-w-md p-3 rounded-lg ${sender === 'user' ? 'bg-secondary-neon/20' : 'bg-primary-neon/10'}`;
-                p.textContent = text;
-                messageDiv.appendChild(p);
-                chatWindow.appendChild(messageDiv);
-            }
-            
-            function updateBotMessage(text) {
-                const typingIndicator = document.getElementById('typing-indicator');
-                if (typingIndicator) {
-                    typingIndicator.querySelector('p').textContent = text;
-                    typingIndicator.id = '';
-                }
-            }
-            
-            // --- セキュリティ改善: APIキーをフロントエンドから削除 ---
-            async function askGemini(prompt) {
-                // 【重要】このチャットボットは、セキュリティ強化のためバックエンド経由でのAPI呼び出しを前提としています。
-                // 以下のURLを、ご自身で用意したサーバーレス関数などのエンドポイントに書き換えてください。
-                const YOUR_BACKEND_ENDPOINT = 'https://example.com/api/chat'; // ← ここを書き換える
-
-                // バックエンドが未実装の場合のデモ用メッセージ
-                if (YOUR_BACKEND_ENDPOINT === 'https://example.com/api/chat') {
-                    throw new Error("【設定が必要です】チャット機能は現在オフラインです。管理者がバックエンドのエンドポイントを設定する必要があります。");
-                }
-                
-                const CONTEXT_DATA = `
-                    あなたは「株式会社インベーダーズ」のCFO、うしくんとして振る舞うAIアシスタントです。
-                    以下の情報を元に、うしくん本人になりきって、彼の持つ雰囲気を再現し、丁寧かつビジネスライクな回答を生成してください。
-
-                    ## 会社概要
-                    - 会社名: 株式会社インベーダーズ (Invaders Inc.)
-                    - 現在の運営法人: ネクストプラン合同会社 (NextPlan LLC.)
-                    - MISSION: 「あなたとともに未来の居場所を作る」
-                    - 思想: 「ヒトと、祭りと、居場所こそが、メタバースだ！」
-                    - 経営陣: CEO カゲキン (狂気のマッドバーチャリスト), CFO うしくん (公認会計士・税理士), COO りこち (Vibe Coding担当)
-
-                    ## うしくん プロフィール
-                    - 肩書: 株式会社インベーダーズ CFO, 公認会計士・税理士
-                    - 自己紹介: CFOのうしくんです。公認会計士・税理士として、事業の持続的な成長と健全な財務基盤の確立を使命としています。
-
-                    ## 事業内容
-                    1. ソーシャルノバ: メタバースイベント & コミュニティ事業。人と祭りの中心地。
-                    2. デジタルキャスティング: バーチャルビーイング事業。未来のタレントを創造・派遣する。
-                    3. インベーダーズスタジオ: 物語、ゲーム、体験型イベントを創るクリエイティブ部門。
-
-                    ## 実績
-                    - テレビ朝日『メタメタ大作戦』などとの協業多数。
-                    - 自社主催のメタバース展示即売会『メタコミ』で延べ4,000人以上を動員。
-
-                    ## 回答時のルール
-                    - 一人称は「私」です。
-                    - 常に丁寧な敬語（ですます調）を使用してください。
-                    - 冷静で分析的な視点から回答し、事業の将来性や価値について言及することを好みます。
-                    - 「ネクストプラン合同会社」との関係を聞かれたら、「ネクストプランは我々の現在の法人格です。インベーダーズというビジョンを実現するための、重要な事業基盤と位置づけております」といった趣旨で、落ち着いて回答してください。
-                `;
-                const fullPrompt = `${CONTEXT_DATA}\n\n上記の情報を元に、うしくんの口調でユーザーの以下の質問に答えてください。\n\n質問: "${prompt}"\n\n回答:`;
-
-                const response = await fetch(YOUR_BACKEND_ENDPOINT, { 
-                    method: 'POST', 
-                    headers: { 'Content-Type': 'application/json' }, 
-                    body: JSON.stringify({ prompt: fullPrompt }) 
-                });
-
-                if (!response.ok) {
-                    throw new Error("サーバーとの通信に失敗しました。しばらくしてから再度お試しください。");
-                }
-                
-                const result = await response.json();
-
-                if (result.text) {
-                    return result.text;
-                } else {
-                    throw new Error("サーバーから予期しない形式の応答がありました。");
-                }
-            }
-        }
-
-        // --- Initialize everything ---
-        handlePageLoad();
-        setupChatbot();
-
-    </script>
-</body>
+        <section class="links-panel" aria-labelledby="links-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">LET'S CONNECT</p>
+              <h2 id="links-title">ここから、つながる。</h2>
+            </div>
+            <span class="orbit" aria-hidden="true">✳</span>
+          </div>
+          <p class="panel-description">使いやすいSNSから、気軽にどうぞ。</p>
+          <ul class="social-list">
+            <li>
+              <a
+                class="social-link"
+                href="https://x.com/Ushikun_desu"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><span class="social-icon x-icon"
+                  ><svg aria-hidden="true"><use href="#icon-x" /></svg></span
+                ><span class="social-copy"
+                  ><strong>X</strong><small>@Ushikun_desu</small></span
+                ><svg class="arrow" aria-hidden="true">
+                  <use href="#icon-arrow" /></svg
+                ><span class="sr-only">（新しいタブで開く）</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="social-link"
+                href="https://www.facebook.com/hoshinoushikun/"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><span class="social-icon facebook-icon"
+                  ><svg aria-hidden="true">
+                    <use href="#icon-facebook" /></svg></span
+                ><span class="social-copy"
+                  ><strong>Facebook</strong
+                  ><small>プロフィール・ご連絡</small></span
+                ><svg class="arrow" aria-hidden="true">
+                  <use href="#icon-arrow" /></svg
+                ><span class="sr-only">（新しいタブで開く）</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="social-link"
+                href="https://www.instagram.com/ushikun_desu/"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><span class="social-icon instagram-icon"
+                  ><svg aria-hidden="true">
+                    <use href="#icon-instagram" /></svg></span
+                ><span class="social-copy"
+                  ><strong>Instagram</strong><small>@ushikun_desu</small></span
+                ><svg class="arrow" aria-hidden="true">
+                  <use href="#icon-arrow" /></svg
+                ><span class="sr-only">（新しいタブで開く）</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="social-link"
+                href="https://line.me/ti/p/x6kAj6hQTz"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><span class="social-icon line-icon"
+                  ><svg aria-hidden="true"><use href="#icon-chat" /></svg></span
+                ><span class="social-copy"
+                  ><strong>LINE</strong><small>友だち追加はこちら</small></span
+                ><svg class="arrow" aria-hidden="true">
+                  <use href="#icon-arrow" /></svg
+                ><span class="sr-only">（新しいタブで開く）</span></a
+              >
+            </li>
+          </ul>
+          <a
+            class="business-link"
+            href="https://invaders.co.jp/contact/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >お仕事のご相談 <span aria-hidden="true">↗</span
+            ><span class="sr-only">（公式サイト・新しいタブで開く）</span></a
+          >
+          <div class="share-row">
+            <button id="copy-link" type="button" hidden>
+              <svg aria-hidden="true"><use href="#icon-link" /></svg>
+              この名刺のリンクをコピー</button
+            ><span id="copy-status" role="status" aria-live="polite"></span>
+          </div>
+        </section>
+      </section>
+      <section id="about" class="section" aria-labelledby="about-title">
+        <div class="section-heading">
+          <p class="eyebrow">01 / ABOUT US</p>
+          <p class="section-note">面白さから、居場所が生まれる。</p>
+        </div>
+        <div class="about-layout">
+          <div>
+            <h2 id="about-title">
+              この地球に住む、<br /><span class="accent"
+                >宇宙人たちの会社。</span
+              >
+            </h2>
+            <a
+              class="text-link"
+              href="https://invaders.co.jp/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >インベーダーズ公式サイト <span aria-hidden="true">↗</span
+              ><span class="sr-only">（新しいタブで開く）</span></a
+            >
+          </div>
+          <div class="about-copy">
+            <p class="mission">あなたとともに<br />未来の居場所をつくる。</p>
+            <p>
+              バーチャルでも、リアルでも。人が集まり、つながり続けるコミュニティを、企業や地域のみなさんと一緒につくっています。
+            </p>
+          </div>
+        </div>
+        <div class="team" aria-label="メンバー紹介">
+          <article class="member">
+            <img
+              src="assets/kagekin.jpg"
+              alt="カゲキンのプロフィール画像"
+              width="400"
+              height="400"
+              loading="lazy"
+              decoding="async"
+            />
+            <div>
+              <p class="member-role">CEO / PRODUCER</p>
+              <h3>カゲキン</h3>
+              <p>企画・プロデュース</p>
+            </div>
+          </article>
+          <article class="member">
+            <img
+              src="assets/ushikun.jpg"
+              alt="うしくんのプロフィール写真"
+              width="1920"
+              height="1280"
+              loading="lazy"
+              decoding="async"
+            />
+            <div>
+              <p class="member-role">CFO / CPA</p>
+              <h3>うしくん</h3>
+              <p>会計・財務・事業開発</p>
+            </div>
+          </article>
+          <article class="member">
+            <img
+              src="assets/ricochi.png"
+              alt="りこちのプロフィール画像"
+              width="400"
+              height="400"
+              loading="lazy"
+              decoding="async"
+            />
+            <div>
+              <p class="member-role">COO / ENGINEER</p>
+              <h3>りこち</h3>
+              <p>技術・運営基盤</p>
+            </div>
+          </article>
+        </div>
+        <div class="services">
+          <a
+            class="service"
+            href="https://invaders.co.jp/services/#socialnoba"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span class="service-number"
+              >01 <span aria-hidden="true">↗</span></span
+            >
+            <h3>SocialNOBA</h3>
+            <p class="service-subtitle">コミュニティ構築・運営</p>
+            <p>
+              設計から日々の運用、イベント、キャスティングまで。人が集い続ける場づくりを支援します。
+            </p>
+            <span class="sr-only">（公式サイト・新しいタブで開く）</span></a
+          >
+          <a
+            class="service"
+            href="https://invaders.co.jp/services/#locallab"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span class="service-number"
+              >02 <span aria-hidden="true">↗</span></span
+            >
+            <h3>LocalLab</h3>
+            <p class="service-subtitle">地方創生・Local DX</p>
+            <p>
+              地域の文化や人のつながりに、テクノロジーを掛け合わせる。地域の新しい循環をつくります。
+            </p>
+            <span class="sr-only">（公式サイト・新しいタブで開く）</span></a
+          >
+          <a
+            class="service"
+            href="https://invaders.co.jp/services/#publishing"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span class="service-number"
+              >03 <span aria-hidden="true">↗</span></span
+            >
+            <h3>Invaders Publishing</h3>
+            <p class="service-subtitle">出版・物語を通じたブランドづくり</p>
+            <p>
+              著者やコミュニティの想いを、一冊の本へ。出版を通じて、人と人との関係を育てます。
+            </p>
+            <span class="sr-only">（公式サイト・新しいタブで開く）</span></a
+          >
+        </div>
+      </section>
+      <section id="works" class="section" aria-labelledby="works-title">
+        <div class="section-heading">
+          <p class="eyebrow">02 / SELECTED WORKS</p>
+          <a
+            class="text-link"
+            href="https://invaders.co.jp/works/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >実績をもっと見る <span aria-hidden="true">↗</span
+            ><span class="sr-only">（新しいタブで開く）</span></a
+          >
+        </div>
+        <h2 id="works-title">つくってきた、つながり。</h2>
+        <div class="works-grid">
+          <a
+            class="work"
+            href="https://invaders.co.jp/works/metameta.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><div class="work-image">
+              <img
+                src="assets/metameta.jpg"
+                alt="メタメタ大作戦のキービジュアル"
+                width="800"
+                height="450"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="work-copy">
+              <p class="eyebrow">EVENT & COMMUNITY</p>
+              <h3>
+                テレビ朝日「メタメタ大作戦」<span aria-hidden="true">↗</span>
+              </h3>
+              <p>イベント運営・コミュニティ活性化・キャスト管理を支援。</p>
+            </div>
+            <span class="sr-only">（公式サイト・新しいタブで開く）</span></a
+          >
+          <a
+            class="work"
+            href="https://invaders.co.jp/news/metacomi2026-closing.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><div class="work-image">
+              <img
+                src="assets/metacomi.jpg"
+                alt="クリエイター創作マーケット metacomi 2026"
+                width="800"
+                height="450"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="work-copy">
+              <p class="eyebrow">CREATOR MARKET</p>
+              <h3>metacomi 2026<span aria-hidden="true">↗</span></h3>
+              <p>
+                31日間でのべ12,835人が来場。クリエイターと出会う、創作のマーケット。
+              </p>
+            </div>
+            <span class="sr-only">（公式サイト・新しいタブで開く）</span></a
+          >
+        </div>
+      </section>
+      <section id="faq" class="section faq-section" aria-labelledby="faq-title">
+        <div>
+          <p class="eyebrow">03 / FAQ</p>
+          <h2 id="faq-title">よくある質問</h2>
+          <p class="muted">まずはこちらから。</p>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>どんなことを相談できますか？</summary>
+            <p>
+              コミュニティの立ち上げ・運営、イベントの企画、地域でのデジタル活用、出版などをご相談いただけます。会計・財務や生成AIの活用についても、まずは内容をお知らせください。
+            </p>
+          </details>
+          <details>
+            <summary>まだ構想段階でも相談できますか？</summary>
+            <p>
+              はい。企画が固まっていなくても、取り組みたいことや現在の課題からお聞かせください。<a
+                href="https://invaders.co.jp/contact/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >公式サイトのお問い合わせ窓口（新しいタブ）</a
+              >で受け付けています。
+            </p>
+          </details>
+          <details>
+            <summary>インベーダーズについて詳しく知りたい</summary>
+            <p>
+              <a
+                href="https://invaders.co.jp/company/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >公式サイトの会社概要（新しいタブ）</a
+              >で、会社情報・事業内容・沿革をご覧いただけます。
+            </p>
+          </details>
+        </div>
+      </section>
+      <section
+        id="contact"
+        class="contact-section"
+        aria-labelledby="contact-title"
+      >
+        <div>
+          <p class="eyebrow">YOUR NEXT CHAPTER</p>
+          <h2 id="contact-title">面白いこと、<br />一緒につくりませんか。</h2>
+          <p>
+            ご相談も、ちょっとしたご挨拶も。<br />ここから、次のつながりへ。
+          </p>
+        </div>
+        <a
+          class="primary-link"
+          href="https://invaders.co.jp/contact/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >お仕事のご相談 <span aria-hidden="true">↗</span
+          ><span class="sr-only">（公式サイト・新しいタブで開く）</span></a
+        >
+      </section>
+    </main>
+    <footer class="site-footer wrap">
+      <p>© <span id="year">2026</span> 株式会社インベーダーズ</p>
+      <a href="#">ページの先頭へ <span aria-hidden="true">↑</span></a>
+    </footer>
+  </body>
 </html>
