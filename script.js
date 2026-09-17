@@ -1,6 +1,6 @@
 "use strict";
 
-// The page and FAQ work without JavaScript; only sharing is enhanced here.
+// The page and disclosure work without JavaScript; only sharing is enhanced here.
 const year = document.querySelector("#year");
 if (year) year.textContent = String(new Date().getFullYear());
 
