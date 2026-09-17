@@ -378,3 +378,260 @@ footer {
     scroll-behavior: auto !important;
   }
 }
+
+/* Compact mobile business card: a light identity panel above dark contact rows. */
+:root {
+  --bg: #111713;
+  --panel: #1b241e;
+  --text: #f4f4ed;
+  --muted: #b6c0b8;
+  --line: #344238;
+  --accent: #c6ec91;
+}
+body {
+  background:
+    radial-gradient(ellipse at 50% 0%, #29392b 0%, transparent 55%), var(--bg);
+}
+.profile-page {
+  max-width: 480px;
+  padding-top: 18px;
+}
+.profile-header {
+  position: relative;
+  background: #eceee5;
+  color: #19251d;
+  padding: 21px 20px 18px;
+  border: 1px solid #fff7;
+  border-radius: 24px;
+  box-shadow: 0 12px 36px #0002;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #425740;
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  margin-bottom: 20px;
+}
+.brand-symbol {
+  color: #526e3d;
+  font-size: 20px;
+  line-height: 1;
+}
+.identity {
+  gap: 17px;
+  align-items: center;
+}
+.portrait {
+  width: 128px;
+  height: 140px;
+  border-radius: 16px;
+  background: #e4e1e4;
+  box-shadow: 0 0 0 1px #19251d16;
+}
+.portrait img {
+  transform: scale(3);
+  transform-origin: 44% 15%;
+}
+h1 {
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+  font-size: 29px;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.reading {
+  color: #5d685d;
+  font-size: 11px;
+  margin-top: 3px;
+  letter-spacing: 0.08em;
+}
+.qualification {
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 17px;
+  color: #263c2b;
+}
+.company {
+  color: #586357;
+  font-size: 10px;
+  line-height: 1.75;
+  margin-top: 4px;
+}
+.expertise {
+  display: flex;
+  gap: 7px;
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+.expertise li {
+  border: 1px solid #53634b30;
+  border-radius: 5px;
+  padding: 3px 8px;
+  font-size: 10px;
+  line-height: 1.5;
+  color: #4d5b47;
+}
+.primary-link {
+  margin-top: 14px;
+  min-height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(115deg, #d2efaa, #bce589);
+  color: #233119;
+  box-shadow: 0 4px 15px #0002;
+  font-size: 14px;
+  padding: 14px 18px;
+}
+.primary-link svg {
+  background: #21301814;
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  border-radius: 50%;
+}
+.social-section {
+  margin-top: 23px;
+}
+h2 {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  margin-bottom: 11px;
+  padding-left: 2px;
+}
+.social-list {
+  gap: 0;
+  background: linear-gradient(140deg, #222e25, #19221c);
+  border: 1px solid #4b5e4b80;
+  border-radius: 18px;
+  padding-inline: 15px;
+  box-shadow: 0 8px 30px #0001;
+}
+.social-list li + li {
+  border-top: 1px solid #71856f30;
+}
+.social-link {
+  border: none;
+  border-radius: 0;
+  background: none;
+  padding: 11px 0;
+  min-height: 66px;
+  gap: 13px;
+}
+.social-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  box-shadow: inset 0 0 0 1px #ffffff08;
+}
+.social-copy strong {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+}
+.social-copy > span {
+  font-size: 11px;
+  margin-top: 1px;
+}
+.arrow {
+  width: 16px;
+  height: 16px;
+  color: #a9b6a6;
+}
+.about {
+  margin-top: 20px;
+  border-top: none;
+  border-bottom: 1px solid #71856f30;
+}
+summary {
+  font-size: 13px;
+  padding: 12px 2px;
+  min-height: 48px;
+}
+.share-row {
+  margin-top: 10px;
+}
+.share-row button {
+  font-size: 12px;
+}
+footer {
+  font-size: 10px;
+  margin-top: 9px;
+  color: #96a593;
+}
+@media (hover: hover) {
+  .social-link:hover {
+    background: #ffffff05;
+  }
+  .primary-link:hover {
+    background: #daf4b7;
+  }
+}
+@media (min-width: 600px) {
+  .profile-page {
+    border-color: #4b5e4b50;
+    background: #11171380;
+    padding: 24px;
+    border-radius: 32px;
+    margin-block: 24px;
+  }
+  .portrait {
+    width: 144px;
+    height: 154px;
+  }
+  h1 {
+    font-size: 33px;
+  }
+  .qualification {
+    font-size: 14px;
+  }
+  .company {
+    font-size: 12px;
+  }
+}
+@media (max-width: 360px) {
+  .profile-page {
+    padding-inline: 14px;
+    padding-top: 14px;
+  }
+  .profile-header {
+    padding: 18px 15px 16px;
+    border-radius: 20px;
+  }
+  .brand {
+    margin-bottom: 17px;
+  }
+  .identity {
+    gap: 12px;
+  }
+  .portrait {
+    width: 108px;
+    height: 122px;
+  }
+  h1 {
+    font-size: 26px;
+  }
+  .qualification {
+    font-size: 11px;
+    margin-top: 13px;
+  }
+  .company {
+    font-size: 10px;
+  }
+  .expertise {
+    gap: 5px;
+    margin-top: 15px;
+  }
+  .expertise li {
+    padding-inline: 7px;
+  }
+  .primary-link {
+    font-size: 13px;
+    padding-inline: 15px;
+  }
+}
